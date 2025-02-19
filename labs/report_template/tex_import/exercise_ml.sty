@@ -1,0 +1,24 @@
+% --- Identification part ---
+\ProvidesPackage{ETHuebung_english}
+
+% --- Declaration of options ---
+\DeclareOption{english}{%
+  \PassOptionsToPackage{english}{babel}
+  \EinheitName{Westlake University}
+  \EinheitInfo{Department of Artificial Intelligence, SOE}
+  \PersonName{Tao Lin \& Kaicheng YU}
+  \PersonInfo{
+    {\setlength{\tabcolsep}{0mm}
+        \href{https://github.com/LINs-lab/course_machine_learning}{https://github.com/LINs-lab/course\_machine\_learning}%\\
+        %\href{mailto:epfmlcourse@gmail.com}{epfmlcourse@gmail.com}
+      }}
+  \Kurstitel{Machine Learning Course}
+  \Semester{Spring 2025}
+}
+
+% --- Execution of options ---
+\ExecuteOptions{english}   % set default
+\ProcessOptions
+
+% --- Package loading
+\RequirePackage{babel}
