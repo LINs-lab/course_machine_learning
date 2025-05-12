@@ -9,6 +9,7 @@ Public repository for lecture notes / labs, etc
 * **Time and Location**: 
   * Theory: Tuesday 09:50 - 12:15, YunGu campus E10-212
   * Exercise: Thursday 08:00 - 09:35, YunGu campus E10-221
+* [Canvas](https://canvas.westlake.edu.cn/courses/1066)
 
 ### Grading
 See [course_info_sheet](./lectures/course_info_sheet.pdf) for more details.
