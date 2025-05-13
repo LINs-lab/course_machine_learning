@@ -51,9 +51,9 @@ See [course_info_sheet](./lectures/course_info_sheet.pdf) for more details.
 |      |                                     |            | TA                   | QA for Project 2; Project 2 due                                                                                                                                                       | Practical                               |
 
 ### Adjusted Syllabus for Exercise Sessions
-| Week | TAs (Head TA, *TAs)           | Theme / Topic        |
-| ---- | ----------------------------- | -------------------- |
-| 13th | Enhui MA, Shiwen LI, Peng SUN | Lab 1, Lab 3, Lab 4  |
-| 14th | Peng SUN, Futing Wang         | Lab 5, Lab 6, Lab 7  |
-| 15th | Futing Wang, Enhui MA         | Lab 8, Lab 9, Lab 10 |
-| 16th | Enhui MA, Shiwen LI           | Lab 11, Lab 12       |
+| Week | TAs (Head TA, *TAs)   | Theme / Topic        |
+| ---- | --------------------- | -------------------- |
+| 13th | Shiwen LI, Peng SUN   | Lab 1, Lab 3, Lab 4  |
+| 14th | Peng SUN, Futing Wang | Lab 5, Lab 6, Lab 7  |
+| 15th | Futing Wang, Enhui MA | Lab 8, Lab 9, Lab 10 |
+| 16th | Enhui MA, Shiwen LI   | Lab 11, Lab 12       |
