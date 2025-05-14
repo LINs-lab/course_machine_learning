@@ -1,1 +1,186 @@
+\documentclass{../tex_import/ETHuebung_english}
 
+\usepackage{../tex_import/exercise_ml}
+
+\input{../tex_import/definitions} %our customized .tex macros
+
+\begin{document}
+
+\makeheader{Lab 07, April 10, 2025}{Nonparametric Methods}
+
+
+
+
+\paragraph{Goals.}
+Goals. The goal of this week’s lab is to:
+\begin{itemize}
+    \item Understand the behavior of different non-parametric models.
+    \item Learn how hyperparameters (\textit{e.g.}, $k$, $depth$, \textit{n\_estimators}) affect bias-variance tradeoff.
+    \item Gain experience using real datasets and visualizing model decisions.
+    \item Develop skills in interpreting visual output like decision boundaries, feature importance plots, and prediction scatter plots.
+\end{itemize}
+
+\paragraph{Submission instructions:}
+\begin{itemize}
+    \item Please submit a PDF file to \href{https://canvas.westlake.edu.cn/courses/1066}{canvas}.
+\end{itemize}
+
+
+
+
+\section{Theory Exercises}
+
+\ProblemV{1}{Parametric vs. Non-Parametric Models: KNN, Decision Tree, Random Forest}{%
+In this exercise, we study the distinction between parametric and non-parametric models through three widely used learning algorithms: K-Nearest Neighbors (KNN), Decision Tree, and Random Forest.
+
+\begin{enumerate}
+    \item Define the concepts of \emph{parametric} and \emph{non-parametric} models. Provide one example of each, excluding KNN, Decision Tree, and Random Forest.
+    \item For each of the following models: KNN, Decision Tree, and Random Forest:
+    \begin{itemize}
+        \item State whether the model is parametric or non-parametric.
+        \item Justify your classification based on the structure or behavior of the model.
+    \end{itemize}
+    \item Explain why non-parametric models generally have higher variance compared to parametric models. How can we mitigate this issue in practice?
+\end{enumerate}
+}
+
+\SolutionV{1}{Parametric vs. Non-Parametric Models: KNN, Decision Tree, Random Forest}{
+\begin{enumerate}
+    \item \textbf{Definitions:}
+    \begin{itemize}
+        \item A \emph{parametric model} assumes a fixed number of parameters independent of the size of the dataset. Example: Logistic Regression.
+        \item A \emph{non-parametric model} allows the number of effective parameters to grow with the size of the data. Example: Support Vector Machine with RBF kernel.
+    \end{itemize}
+    
+    \item \textbf{Model Types and Justification:}
+    \begin{itemize}
+        \item \textbf{KNN:} Non-parametric. The model memorizes the entire training dataset and makes predictions based on distance to neighbors. Complexity grows with the size of the data.
+        \item \textbf{Decision Tree:} Non-parametric. The model structure (number of nodes) is determined during training and can grow with more data.
+        \item \textbf{Random Forest:} Non-parametric. It is an ensemble of decision trees, each of which is non-parametric. Thus, the overall model is also non-parametric.
+    \end{itemize}
+    
+    \item \textbf{Variance in Non-Parametric Models:}
+    Non-parametric models have higher flexibility and can closely fit the training data, which increases the risk of overfitting and leads to high variance. To reduce variance:
+    \begin{itemize}
+        \item In KNN: increase $k$.
+        \item In Decision Trees: apply pruning or limit the tree depth.
+        \item In Random Forest: use ensemble averaging and limit the depth of individual trees.
+    \end{itemize}
+\end{enumerate}
+}
+
+
+
+\ProblemV{2}{Bias-Variance Trade-off in KNN, Decision Tree, and Random Forest}{%
+In this exercise, we study the bias-variance trade-off in the context of three non-parametric models: K-Nearest Neighbors (KNN), Decision Tree, and Random Forest.
+
+\begin{enumerate}
+    \item Briefly explain the bias-variance trade-off and its role in supervised learning.
+    \item For each model listed below, explain how its key hyperparameters affect bias and variance:
+    \begin{itemize}
+        \item K-Nearest Neighbors (K)
+        \item Decision Tree (depth)
+        \item Random Forest (number of trees and tree depth)
+    \end{itemize}
+    \item Explain why bagging (bootstrap aggregating) helps reduce variance in Random Forests. How does it enhance generalization compared to a single Decision Tree?
+\end{enumerate}
+}
+
+\SolutionV{2}{Bias-Variance Trade-off in KNN, Decision Tree, and Random Forest}{
+\begin{enumerate}
+    \item \textbf{Bias-Variance Trade-off:}  
+    Bias refers to the error due to incorrect assumptions in the learning algorithm, while variance refers to the error due to model sensitivity to small fluctuations in the training set. As model complexity increases, bias typically decreases and variance increases. The trade-off is finding the right complexity that minimizes total error.
+    
+    \item \textbf{Hyperparameter Effects:}
+    \begin{itemize}
+        \item \textbf{KNN (K):}  
+        A small $k$ leads to low bias but high variance (overfitting), while a large $k$ increases bias and reduces variance (underfitting).
+        \item \textbf{Decision Tree (depth):}  
+        A deep tree has low bias and high variance. Limiting the depth increases bias but reduces variance.
+        \item \textbf{Random Forest (number of trees, depth):}  
+        Increasing the number of trees lowers variance due to averaging. Limiting tree depth prevents overfitting and controls variance.
+    \end{itemize}
+    
+    \item \textbf{Bagging in Random Forest:}  
+    Bagging generates multiple bootstrap samples and trains a separate model on each. The aggregation of predictions reduces variance by averaging out fluctuations caused by data sampling. This makes Random Forests more stable and generalizable than a single decision tree.
+\end{enumerate}
+}
+
+
+
+
+
+
+
+
+\section{KNN Classification and Random Forest Regression}
+
+\Exercise{1}{
+
+Visualize the decision boundaries of $k$-Nearest Neighbors with different values of $k$.
+
+\begin{itemize}
+
+\item In this exercise, you will use the {\tt load\_iris()} dataset and reduce its dimensionality to $2$ using PCA.
+Then, implement the function {\tt plot\_knn\_decision\_boundary(X\_train, y\_train, X\_test, y\_test, k)}.
+
+\item This function should:
+\begin{itemize}
+    \item Train a $k$-NN classifier with the specified number of neighbors $k$.
+    \item Compute and print the training and test accuracy.
+    \item Generate a contour plot of the decision boundary in the PCA-projected 2D space, using {\tt matplotlib}.
+\end{itemize}
+
+\item Run the function for $k = 1$, $k = 5$, and $k = 15$. Each run should produce a decision boundary plot and display the corresponding accuracies.
+
+\item Comment on the effect of $k$ in a markdown cell: how does the decision boundary change as $k$ increases? How does it relate to the bias-variance tradeoff?
+
+\end{itemize}}
+
+\begin{figure}[!htp]
+    \centering
+    \includegraphics[width=9cm]{solution/plot_knn_decision_boundary(k=5).png}\vspace{-2mm}
+    \caption{Decision boundary of 5-NN on the Iris dataset (after PCA).}
+    \label{fig:knn_boundary}
+\end{figure}
+
+
+
+\Exercise{2}{
+
+Compare the performance of a Decision Tree and a Random Forest on a real-world regression task and visualize feature importances.
+
+\begin{itemize}
+
+\item In this exercise, you will use the {\tt fetch\_california\_housing()} dataset from {\tt sklearn.datasets}. 
+Split the data into training and test sets using an 7: 3 ratio.
+
+\item Implement the function {\tt compare\_rf\_vs\_dt()} to perform the following steps:
+\begin{itemize}
+    \item Train a {\tt DecisionTreeRegressor} with {\tt max\_depth=10} and a {\tt RandomForestRegressor} with {\tt n\_estimators=100}.
+    \item Compute and print the test MSE for both models.
+    \item Plot two scatter plots of predicted values versus true values for both models (i.e., $y_{\text{true}}$ vs $y_{\text{pred}}$).
+    \item Generate a horizontal bar chart that displays the feature importances from the Random Forest model.
+\end{itemize}
+
+\item Comment on the generalization capability of each model based on the test MSE and the plots. 
+Which features appear most important for predicting house prices?
+
+\end{itemize}}
+
+\begin{figure}[!htp]
+    \centering
+    \includegraphics[width=13cm]{solution/predicted_true values.png}\vspace{-2mm}
+    \caption{Scatter plots of predicted vs true values for Decision Tree and Random Forest.}
+    \label{fig:rf_scatter}
+\end{figure}
+
+\begin{figure}[!htp]
+    \centering
+    \includegraphics[width=10cm]{solution/random_forest_feature_importances.png}\vspace{-2mm}
+    \caption{Feature importances from the trained Random Forest on the California Housing dataset.}
+    \label{fig:rf_importance}
+\end{figure}
+
+
+\end{document}
