@@ -1,0 +1,201 @@
+\documentclass{./../../tex_import/ETHuebung_english}
+
+\usepackage{./../../tex_import/exercise_ml}
+
+\input{../../tex_import/definitions} 
+
+
+
+\begin{document}
+
+\makeheader{7, Oct 29, 2024}{Solutions to Theory Questions Part}
+
+
+\ProblemV{1}{Kernels}
+\ \ 
+\vspace{-1.5cm}
+
+In class we have seen that many kernel functions $k(\xv, \xv')$ can be written as
+inner products $\phi(\xv)^\top \phi(\xv')$, for a suitably chosen vector-function $\phi(\cdot)$ (often called a feature map). Let us say that such a kernel function is \textit{valid}.
+We further discussed many operations on valid kernel functions that result again in valid kernel functions.  Here are two more.
+
+\begin{enumerate}
+	\item Let $k_1(\xv, \xv' )$ be a valid kernel function. Let $f$ be a polynomial with positive coefficients. Show that $k(\xv, \xv')=f(k_1(\xv, \xv'))$ is a valid kernel.
+	
+	\item Show that $k(\xv, \xv' ) =\exp(k_1(\xv, \xv' ))$ is a valid kernel assuming that $k_1(\xv, \xv' )$ is a valid kernel. 
+	\textit{Hint}: You can use the following property: if $(K_n)_{n \geq 0}$ is a sequence of valid kernels and if there exists
+	a function $K : \mathcal{X} \times \mathcal{X} \to \mathbb{R}$
+	such that for all $(x, x') \in \mathcal{X}^2$, $K_n(x, x') \underset{n \to + \infty}{\longrightarrow} K(x, x')$, 
+	then $K$ is a valid kernel.
+\end{enumerate}
+
+\textbf{Solution:}
+	\begin{enumerate}
+		\item 
+		\begin{itemize}
+			\item 		First we will prove that the sum or two valid kernels $k_1$ and $k_2$ $k = k_1 + k_2$ is a valid kernel. We need to construct a feature vector $\phi(\xv)$ such that $k(\xv, \xv') = \phi(\xv)^\top \phi(\xv')$, then by definition $k$ would be a valid kernel.
+			
+			Because kernels $k_1$ and $k_2$ are valid kernels
+			\begin{align*}
+			k_1(\xv, \xv') = \phi_1(\xv)^\top \phi_1(\xv'), \qquad k_2(\xv, \xv') = \phi_2(\xv)^\top \phi_2(\xv'),
+			\end{align*}
+			for some feature vectors $\phi_1(\xv)$ and $\phi_2(\xv)$.
+			
+			Lets take $\phi(\xv) = \begin{pmatrix}
+			\phi_1(\xv)\\
+			\phi_2(\xv)
+			\end{pmatrix}$, then
+			\begin{align*}
+			\phi(\xv)^\top\phi(\xv') &= \begin{pmatrix}\phi_1(\xv)^\top, \phi_2(\xv)^\top \end{pmatrix}\begin{pmatrix}
+			\phi_1(\xv')\\
+			\phi_2(\xv')
+			\end{pmatrix} = \phi_1(\xv)^\top\phi_1(\xv') + \phi_2(\xv)^\top\phi_2(\xv') \\
+			&= k_1(\xv, \xv') + k_2(\xv, \xv') = k(\xv, \xv')
+			\end{align*}
+			Therefore $k = k_1 + k_2$ is a valid kernel.
+			
+			\item Second, we will prove that the product $k = k_1\cdot k_2$ of two valid kernels is a valid kernel. 
+			
+			Let's denote $n_1$ and $n_2$ dimensions of a feature vectors $\phi_1(\xv)$ and $\phi_2(\xv)$ (i.e. $\phi_1(\xv) \in \R^{n_1}$,  $\phi_2(\xv) \in \R^{n_1}$).
+			\begin{align*}
+			k_1(\xv, \xv') = \sum_{i=0}^{n_1 - 1}\phi_{1, i}(\xv) \phi_{1, i}(\xv'), \qquad k_2(\xv, \xv') = \sum_{j=0}^{n_2 - 1}\phi_{2, j}(\xv) \phi_{2, j}(\xv'),
+			\end{align*}
+			Then the kernel $k = k_1 \cdot k_2$ is 
+			\begin{align*}
+			k(\xv, \xv') = \left(\sum_{i=0}^{n_1 - 1}\phi_{1, i}(\xv) \phi_{1, i}(\xv')\right) \left(\sum_{j=0}^{n_2 - 1}\phi_{2, j}(\xv) \phi_{2, j}(\xv')\right) = \sum_{i=0}^{n_1 - 1}\sum_{j=0}^{n_2 - 1}\left(\phi_{1, i}(\xv)\phi_{2, j}(\xv) \right) \left(\phi_{1, i}(\xv')\phi_{2, j}(\xv')\right)
+			\end{align*}
+			Lets introduce a feature vector $\phi(\xv) \in \R^{n_1 n_2}$, such that $\phi_{i n_2 + j}(\xv) = \phi_{1, i}(\xv)\phi_{2, j}(\xv)$ for $i \in [0, \dots, n_1 - 1], j \in [0, \dots, n_2 - 1]$. Note that for such $i$ and $j$ the index of the feature vector $\phi$ ic correct: $i n_2 + j \in [0, \dots, n_1 n_2 - 1]$. Then, 
+			\begin{align*}
+			\phi(\xv)^\top\phi(\xv') &= \sum_{l = 0}^{n_1 n_2 - 1} \phi_l(\xv)\phi_l(\xv') = \sum_{i=0}^{n_1 - 1}\sum_{j=0}^{n_2 - 1} \phi_{i n_2 + j}(\xv)\phi_{i n_2 + j}(\xv') \\
+			& = \sum_{i=0}^{n_1 - 1}\sum_{j=0}^{n_2 - 1}\left(\phi_{1, i}(\xv)\phi_{2, j}(\xv) \right) \left(\phi_{1, i}(\xv')\phi_{2, j}(\xv')\right) 
+			= k_1(\xv, \xv') \cdot k_2(\xv, \xv') = k(\xv, \xv').
+			\end{align*}
+			
+			Therefore $k(\xv, \xv') = k_1(\xv, \xv')\cdot k_2(\xv, \xv')$ is a valid kernel. 
+			
+
+			\item Third we need to show that if $k_1$ is a valid kernel, then $k = c \times k_1$ with $c \geq 0$ is also a valid kernel. Since 
+			$k_1$ is valid, we can write for all $x$ and $x'$: $k_1(x, x') = \phi_1(x)^T \phi_1(x')$. Now let $\phi(x) = \sqrt{c} \phi_1(x)$.
+			 Notice that $k(x, x') = c \cdot k_1(x, x') = ( \sqrt{c} \phi_1(x) )^T (\sqrt{c} \phi_1(x') ) = \phi(x)^T \phi(x')$. Hence $c \times k_1$ is also a valid kernel.
+
+			\item Since $f$ is only composed of the three previous operations (sum, product, multiplication by positive scalar), we can conclude that 
+			$(x, x') \mapsto f(k_1(x, x'))$ is a valid kernel.
+			
+		\end{itemize}
+
+		\item It suffices to apply the hint to the sequence 
+		of kernels $k_n(x, x') = \sum_{i = 0}^n \frac{1}{i !} k_1(x, x')^i$. 
+		According to our previous result these are valid kernels. 
+		Since $k_n(x, x') \underset{n \to + \infty}{\longrightarrow} \exp(k_1(x, x')$ we can apply
+		the hint and conclude that $k$ is a valid kernel. 
+	\end{enumerate}
+	
+
+
+\paragraph{Bonus.}
+
+For the curious who are familiar with matrices and the $\text{trace}$ operator, here is an elegant and more natural
+way of showing that the product of two valid kernels is a valid kernel.
+Notice that for $x, x' \in \mathcal{X}^2$:
+\begin{align*}
+	k(x, x') &= k_1(x, x') \cdot k_2(x, x') \\
+	&= \phi_1(x)^T \phi_1(x') \phi_2(x)^T \phi_2(x') \\
+	&= \phi_1(x)^T \phi_1(x') \phi_2(x')^T \phi_2(x) \\
+	&= \text{trace}( \phi_1(x)^T \phi_1(x') \phi_2(x')^T \phi_2(x) ) \\
+	&= \text{trace}(  \phi_1(x') \phi_2(x')^T \phi_2(x) \phi_1(x)^T) \\
+	&= \text{trace}(  (\phi_2(x') \phi_1(x')^T)^T \phi_2(x) \phi_1(x)^T) \\
+	&= \langle  \phi_2(x) \phi_1(x)^T , \ \phi_2(x') \phi_1(x')^T  \rangle_F \\
+\end{align*}
+
+Second equality is the definition of the valid kernels $k_1$ and $k_2$, third is due to $x^T y = y^T x$, 
+fourth is noticing that for $z \in \mathbb{R}$ $\text{trace}(z) = z$,
+fifth is that $\text{trace}(A B) = \text{trace}(B A)$, seventh is due to $x y^T = (y x^T)^T$, and last is 
+the definition of the Frobenius inner product for matrices.
+Hence by letting $\phi(x) =  \phi_2(x) \phi_1(x)^T \in \mathbb{R}^{n_2 \times n_1}$
+we obtain $k(x, x') = \langle  \phi(x), \phi(x') \rangle_F$.
+
+
+\vspace{1cm}
+
+
+
+\ProblemV{2}{Softmax Cross Entropy}
+
+\vspace{-1.5em}
+In the notebook exercises we performed multiclass classification using softmax-cross-entropy as our loss.
+The softmax of a vector $\mathbf{x}=[x_1,...,x_d]^\top$ is a vector $\mathbf{z}=[z_1,...,z_d]^\top$ with:
+\begin{equation} \label{eq:softmax}
+z_k = \frac{\exp(x_k)}{\sum_{i=1}^{d} \exp(x_i)}
+\end{equation}
+The label $y$ is an integer denoting the target class.
+To turn $y$ into a probability distribution for use with cross-entropy, we use one-hot encoding:
+\begin{equation}
+\text{onehot}(y)=\mathbf{y}=[y_1,...,y_d]^\top \text{ where } y_k=
+\begin{cases}
+1, \text{ if } k=y \\
+0, \text{ otherwise}
+\end{cases}
+\end{equation}
+The cross-entropy is given by:
+\begin{equation}
+H(\mathbf{y}, \mathbf{z}) = - \sum_{i=1}^{d} y_i \ln(z_i)
+\end{equation}
+We ask you to do the following:
+\begin{enumerate}
+	\item Equation~\ref{eq:softmax} potentially computes $\exp$ of large positive numbers which is numerically unstable. Modify Eq.~\ref{eq:softmax} to avoid positive numbers in $\exp$. Hint: Use $\max_j(x_j)$.
+	\item Derive $\frac{\partial H(\mathbf{y}, \mathbf{z})}{\partial x_j}$. You may assume that $\mathbf{y}$ is a one-hot vector.
+	\item What values of $x_i$ minimize the softmax-cross-entropy loss? To avoid complications, practitioners sometimes use a trick called label smoothing where $\mathbf{y}$ is replaced by $\hat{\mathbf{y}} = (1-\epsilon)\mathbf{y} + \frac{\epsilon}{d} \mathbf{1}$ for some small value e.g. $\epsilon=0.1$.
+\end{enumerate}
+
+\textbf{Solution:}
+
+\vspace{1em}
+\textbf{Part 1}:
+\begin{equation}
+z_k = \frac{\exp(x_k)}{\sum_{i=1}^{d} \exp(x_i)} = \frac{\exp(-\max_j(x_j))}{\exp(-\max_j(x_j))} \frac{\exp(x_k)}{\sum_{i=1}^{d} \exp(x_i)} = \frac{\exp(x_k-\max_j(x_j))}{\sum_{i=1}^{d} \exp(x_i-\max_j(x_j))}
+\end{equation}
+
+
+\vspace{1em}
+\textbf{Part 2}:
+\begin{align*}
+\frac{\partial H(\mathbf{y}, \mathbf{z})}{\partial x_j} &= \frac{\partial H(\mathbf{y}, \mathbf{z})}{\partial z_y} \frac{\partial z_y}{\partial x_j} \\
+&= \frac{-1}{z_y} \frac{\partial}{\partial x_j} \frac{\exp(x_y)}{\sum_{i=1}^{d} \exp(x_i)}
+\end{align*}
+For $j=y$ we have:
+\begin{equation*}
+\frac{-1}{z_y} \frac{\partial}{\partial x_j} \frac{\exp(x_j)}{\sum_{i=1}^{d} \exp(x_i)} = -\frac{\sum_{i=1}^{d} \exp(x_i)}{\exp(x_j)} \cdot \frac{\exp(x_j) \sum_{i=1}^{d} \exp(x_i) - \exp(x_j)^2}{(\sum_{i=1}^{d} \exp(x_i))^2} = -\frac{\sum_{i=1}^{d} \exp(x_i) - \exp(x_j)}{\sum_{i=1}^{d} \exp(x_i)} = z_j - 1
+\end{equation*}
+For $j \ne y$ we have:
+\begin{equation*}
+\frac{-1}{z_y} \frac{\partial}{\partial x_j} \frac{\exp(x_y)}{\sum_{i=1}^{d} \exp(x_i)} = -\frac{\sum_{i=1}^{d} \exp(x_i)}{\exp(x_y)} \cdot \frac{-\exp(x_j)\exp(x_y)}{(\sum_{i=1}^{d} \exp(x_i))^2} = \frac{\exp(x_j)}{\sum_{i=1}^{d} \exp(x_i)} = z_j
+\end{equation*}
+We can concisely write:
+\begin{equation}
+\frac{\partial H(\mathbf{y}, \mathbf{z})}{\partial \mathbf{x}} = \mathbf{z} - \mathbf{y}
+\end{equation}
+
+
+\vspace{1em}
+\textbf{Part 3}: 
+The optimality condition based on setting the gradient to 0 suggests that $\mathbf z - \mathbf y = 0$. This means that when $j$ is equal to the correct label $y$, we must have $z_j = y_j$. Since $z_j = softmax(\mathbf x)_j$ and $y_j=1$ in this case, this implies that the following must hold:
+\begin{align*}
+	\frac{e^{x_j}}{\sum_{i=1}^d e^{x_i}} = 1.
+\end{align*}
+This can be rewritten as: 
+\begin{align*}
+	\frac{\sum_{i=1}^d e^{x_i}}{e^{x_j}} = 1 \ \ \implies \ \ 
+	\sum_{i=1}^d e^{x_i - x_j} = 1 \ \ \implies \ \ 
+	e^{x_j - x_j} + \sum_{i \neq j} e^{x_i - x_j} = 1 \ \ \implies \ \ 
+	\sum_{i \neq j} e^{x_i - x_j} = 0.
+\end{align*}
+From this, we conclude that for all $i$ not equal to $j$, we must have $e^{x_i - x_j} \to 0$ or, equivalently, $x_i - x_j \to -\infty$. This means that $x_i \to -\infty$ (again, for all $i$ not equal to $j$, i.e., for $i \neq y$) and $x_j \to \infty$ as suggested in the solution.
+Also, one can verify that this solution is also consistent with the optimality of $x_j$ for $j \neq y$. Thus, we conclude that the loss is minimized when $x_j \rightarrow \begin{cases} \infty \text{ for } j=y \\ -\infty \text{ else} \end{cases}$. 
+
+Note that the expression $\frac{\partial \mathbf H(\mathbf y, \mathbf z)}{\partial \mathbf x} = \mathbf z - \mathbf y$ is true only if $\mathbf y$ is a one-hot vector. With label smoothing, $\mathbf y$ becomes a "smoothed" version of the one-hot vector, and thus we would first need to derive a different expression for the derivative of the cross-entropy loss. After doing that, it should become apparent that the optimal softmax values $\mathbf z$ shouldn't be a one-hot vector anymore which will correspond to a finite minimum in terms of $\mathbf x$. 
+Thus, the main effect of label smoothing is that it makes the minimum finite. 
+
+
+
+
+\end{document}
