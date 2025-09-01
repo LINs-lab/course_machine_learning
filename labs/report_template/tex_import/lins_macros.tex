@@ -1,0 +1,214 @@
+% general packages
+\usepackage{latexsym}
+\PassOptionsToPackage{hyphens}{url}\usepackage{hyperref}
+\usepackage{graphics}
+\usepackage{xcolor}
+\usepackage{todonotes}
+
+\usepackage{subfigure}
+\usepackage{amsopn}
+\usepackage{ifthen}
+\usepackage{tikz}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage{framed}
+\usepackage{centernot}
+\usepackage{empheq}
+\usepackage{caption}
+\usepackage{diagbox}
+\usepackage{soul}
+\usepackage{lipsum}
+\usepackage{tabularx}
+\usepackage{nicefrac}       % compact symbols for 1/2, etc.
+\usepackage{multirow, booktabs, dcolumn, color} % Tables
+\usepackage{mathtools}
+\usepackage{array,colortbl}
+\usepackage{tipa}
+\usepackage{enumitem}
+
+
+% math
+\usepackage{amsmath,amsthm,amssymb}
+\providecommand{\theorem}{\newtheorem{theorem}{Theorem}[section]}
+\providecommand{\corollary}{\newtheorem{corollary}[theorem]{Corollary}}
+\providecommand{\definition}{\newtheorem{definition}[theorem]{Definition}}
+\providecommand{\proposition}{\newtheorem{proposition}[theorem]{Proposition}}
+\providecommand{\remark}{\newtheorem{remark}[theorem]{Remark}}
+\providecommand{\assumption}{\newtheorem{assumption}{Assumption}}
+\providecommand{\noteenv}{\newtheorem{noteenv}[theorem]{Note}}
+% \newtheorem{proposition}[theorem]{Proposition}
+% \newtheorem{remark}[theorem]{Remark}
+% \newtheorem{assumption}{Assumption}
+% \newtheorem{noteenv}[theorem]{Note}
+
+% math notations.
+\providecommand{\lin}[1]{\ensuremath{\left\langle #1 \right\rangle}}
+\providecommand{\abs}[1]{\left\lvert#1\right\rvert}
+\providecommand{\norm}[1]{\left\lVert#1\right\rVert}
+
+\providecommand{\refLE}[1]{\ensuremath{\stackrel{(\ref{#1})}{\leq}}}
+\providecommand{\refEQ}[1]{\ensuremath{\stackrel{(\ref{#1})}{=}}}
+\providecommand{\refGE}[1]{\ensuremath{\stackrel{(\ref{#1})}{\geq}}}
+\providecommand{\refID}[1]{\ensuremath{\stackrel{(\ref{#1})}{\equiv}}}
+
+% basec sets
+\providecommand{\R}{\mathbb{R}} % Reals
+\providecommand{\N}{\mathbb{N}} % Naturals
+\providecommand{\C}{\mathbb{C}} % Complex
+
+% random variables
+\providecommand{\E}{{\mathbb E}}
+\providecommand{\E}[1]{{\mathbb E}\left.#1\right. }        %expectation
+\providecommand{\Eb}[1]{{\mathbb E}\left[#1\right] }       %expectation, with brackets
+\providecommand{\EE}[2]{{\mathbb E}_{#1}\left.#2\right. }  %expectation  
+\providecommand{\EEb}[2]{{\mathbb E}_{#1}\left[#2\right] } %expectation,  with brackets
+\providecommand{\prob}[1]{{\rm Pr}\left[#1\right] }
+\providecommand{\Prob}[2]{{\rm Pr}_{#1}\left[#2\right] }
+\providecommand{\P}[1]{{\rm Pr}\left.#1\right. }
+\providecommand{\Pb}[1]{{\rm Pr}\left[#1\right] }
+\providecommand{\PP}[2]{{\rm Pr}_{#1}\left[#2\right] }
+\providecommand{\PPb}[2]{{\rm Pr}_{#1}\left[#2\right] }
+\providecommand{\derive}[2]{\frac{{\partial}{#1}}{\partial #2} }  %expectation  
+
+% operators
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\supp}{supp}
+\DeclareMathOperator*{\diag}{diag}
+\DeclareMathOperator*{\Tr}{Tr}
+
+% bold vectors
+\providecommand{\0}{\mathbf{0}}
+\providecommand{\1}{\mathbf{1}}
+\renewcommand{\aa}{\mathbf{a}}
+\providecommand{\bb}{\mathbf{b}}
+\providecommand{\cc}{\mathbf{c}}
+\providecommand{\dd}{\mathbf{d}}
+\providecommand{\ee}{\mathbf{e}}
+\providecommand{\ff}{\mathbf{f}}
+\let\ggg\gg
+\renewcommand{\gg}{\mathbf{g}}
+\providecommand{\gv}{\mathbf{g}}
+\providecommand{\hh}{\mathbf{h}}
+\providecommand{\ii}{\mathbf{i}}
+\providecommand{\jj}{\mathbf{j}}
+\providecommand{\kk}{\mathbf{k}}
+\let\lll\ll
+\renewcommand{\ll}{\mathbf{l}}
+\providecommand{\mm}{\mathbf{m}}
+\providecommand{\nn}{\mathbf{n}}
+\providecommand{\oo}{\mathbf{o}}
+\providecommand{\pp}{\mathbf{p}}
+\providecommand{\qq}{\mathbf{q}}
+\providecommand{\rr}{\mathbf{r}}
+\renewcommand{\ss}{\mathbf{s}}
+\providecommand{\tt}{\mathbf{t}}
+\providecommand{\uu}{\mathbf{u}}
+\providecommand{\vv}{\mathbf{v}}
+\providecommand{\ww}{\mathbf{w}}
+\providecommand{\xx}{\mathbf{x}}
+\providecommand{\yy}{\mathbf{y}}
+\providecommand{\zz}{\mathbf{z}}
+
+% bold matrices
+\providecommand{\mA}{\mathbf{A}}
+\providecommand{\mB}{\mathbf{B}}
+\providecommand{\mC}{\mathbf{C}}
+\providecommand{\mD}{\mathbf{D}}
+\providecommand{\mE}{\mathbf{E}}
+\providecommand{\mF}{\mathbf{F}}
+\providecommand{\mG}{\mathbf{G}}
+\providecommand{\mH}{\mathbf{H}}
+\providecommand{\mI}{\mathbf{I}}
+\providecommand{\mJ}{\mathbf{J}}
+\providecommand{\mK}{\mathbf{K}}
+\providecommand{\mL}{\mathbf{L}}
+\providecommand{\mM}{\mathbf{M}}
+\providecommand{\mN}{\mathbf{N}}
+\providecommand{\mO}{\mathbf{O}}
+\providecommand{\mP}{\mathbf{P}}
+\providecommand{\mQ}{\mathbf{Q}}
+\providecommand{\mR}{\mathbf{R}}
+\providecommand{\mS}{\mathbf{S}}
+\providecommand{\mT}{\mathbf{T}}
+\providecommand{\mU}{\mathbf{U}}
+\providecommand{\mV}{\mathbf{V}}
+\providecommand{\mW}{\mathbf{W}}
+\providecommand{\mX}{\mathbf{X}}
+\providecommand{\mY}{\mathbf{Y}}
+\providecommand{\mZ}{\mathbf{Z}}
+\providecommand{\mSigma}{\boldsymbol{\Sigma}}
+\providecommand{\mLambda}{\boldsymbol{\Lambda}}
+\providecommand{\mOmega}{\boldsymbol{\Omega}}
+\providecommand{\mTheta}{\boldsymbol{\Theta}}
+\providecommand{\mpi}{\boldsymbol{\pi}}
+\providecommand{\malpha}{\boldsymbol{\alpha}}
+\providecommand{\meta}{\boldsymbol{\eta}}
+\providecommand{\mxi}{\boldsymbol{\xi}}
+\providecommand{\mepsilon}{\boldsymbol{\epsilon}}
+\providecommand{\mtheta}{\boldsymbol{\theta}}
+\providecommand{\mphi}{\boldsymbol{\phi}}
+\providecommand{\momega}{\boldsymbol{\omega}}
+\providecommand{\msigma}{\boldsymbol{\sigma}}
+\providecommand{\mdelta}{\boldsymbol{\delta}}
+\providecommand{\mvarsigma}{\boldsymbol{\varsigma}}
+\providecommand{\mnu}{\boldsymbol{\nu}}
+\providecommand{\mmu}{\boldsymbol{\mu}}
+\providecommand{\mpsi}{\mathbf{\psi}}
+\newcommand{\Ximax}{\Xi_{\text{max}}}
+
+% caligraphic
+\providecommand{\cA}{\mathcal{A}}
+\providecommand{\cB}{\mathcal{B}}
+\providecommand{\cC}{\mathcal{C}}
+\providecommand{\cD}{\mathcal{D}}
+\providecommand{\cE}{\mathcal{E}}
+\providecommand{\cF}{\mathcal{F}}
+\providecommand{\cG}{\mathcal{G}}
+\providecommand{\cH}{\mathcal{H}}
+\providecommand{\cI}{\mathcal{I}}
+\providecommand{\cJ}{\mathcal{J}}
+\providecommand{\cK}{\mathcal{K}}
+\providecommand{\cL}{\mathcal{L}}
+\providecommand{\cM}{\mathcal{M}}
+\providecommand{\cN}{\mathcal{N}}
+\providecommand{\cO}{\mathcal{O}}
+\providecommand{\cP}{\mathcal{P}}
+\providecommand{\cQ}{\mathcal{Q}}
+\providecommand{\cR}{\mathcal{R}}
+\providecommand{\cS}{\mathcal{S}}
+\providecommand{\cT}{\mathcal{T}}
+\providecommand{\cU}{\mathcal{U}}
+\providecommand{\cV}{\mathcal{V}}
+\providecommand{\cX}{\mathcal{X}}
+\providecommand{\cY}{\mathcal{Y}}
+\providecommand{\cW}{\mathcal{W}}
+\providecommand{\cZ}{\mathcal{Z}}
+
+% textstyle math environment.
+\newenvironment{talign}
+{\let\displaystyle\textstyle\align}
+{\endalign}
+\newenvironment{talign*}
+{\let\displaystyle\textstyle\csname align*\endcsname}
+{\endalign}
+
+%%%%%%%%%%%%%%%%%%% colors
+% textcolors
+\providecommand{\blue}[1]{\textcolor{blue}{#1}}
+\providecommand{\red}[1]{\textcolor{red}{#1}}
+
+% others.
+\definecolor{g1}{rgb}{0.8,0.9,1}
+\definecolor{g2}{rgb}{0.6,0.8,1}
+\definecolor{g3}{rgb}{0.4,0.7,1}
+\newcolumntype{d}{>{\columncolor{g1}}c}
+\newcolumntype{e}{>{\columncolor{g2}}c}
+\newcolumntype{f}{>{\columncolor{g3}}c}
+
+%%%%%%%%%%%%%%%%%%%% command for short.
+% figure in math.
+\newcommand{\imineq}[2]{\vcenter{\hbox{\includegraphics[height=#2ex]{#1}}}}
+
+% notations.
+\providecommand{\alg}{\text{Alg}}

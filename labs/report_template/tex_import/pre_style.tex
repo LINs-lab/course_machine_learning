@@ -1,0 +1,159 @@
+%%%%%%%%%%%%%%%%%%% anything related to better presentation %%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%% configure tableofcontents 
+\AtBeginSection[]
+{
+    \begin{frame}
+        \frametitle{Table of Contents}
+        \tableofcontents[
+            currentsection,
+            currentsubsection,
+            subsectionstyle=show/shaded/hide
+        ]
+    \end{frame}
+}
+\AtBeginSubsection[]
+{
+    \begin{frame}
+        \frametitle{Table of Contents}
+        \tableofcontents[currentsection,currentsubsection]
+    \end{frame}
+}
+
+%%%%%%%%%%%%%%%%%%% double-screen presentation
+\usepackage{pgfpages}
+% These slides also contain speaker notes. You can print just the slides,
+% just the notes, or both, depending on the setting below. Comment out the want
+% you want.
+
+\setbeameroption{hide notes} % Only slides
+% \setbeameroption{show only notes} % Only notes
+% \setbeameroption{show notes on second screen=right} % Both
+
+% To give a presentation with the Skim reader (http://skim-app.sourceforge.net) on OSX so
+% that you see the notes on your laptop and the slides on the projector, do the following:
+%
+% 1. Generate just the presentation (hide notes) and save to slides.pdf
+% 2. Generate only the notes (show only nodes) and save to notes.pdf
+% 3. With Skim open both slides.pdf and notes.pdf
+% 4. Click on slides.pdf to bring it to the front.
+% 5. In Skim, under "View -> Presentation Option -> Synchronized Noted Document"
+%    select notes.pdf.
+% 6. Now as you move around in slides.pdf the notes.pdf file  will follow you.
+% 7. Arrange windows so that notess.pdf is in full-screen mode on your laptop
+%    and slides.pdf is in presentation mode on the projector.
+
+% Give a slight yellow tint to the notes page
+\setbeamertemplate{note page}{\pagecolor{yellow!5}\insertnote}
+\setbeamerfont{note page}{size=\large}
+\usepackage{palatino}
+
+% configure beamer template.
+\setbeamertemplate{theorems}[numbered]
+\usefonttheme[onlymath]{serif}
+
+% configure the margin for itemize.
+\settowidth{\leftmargini}{\usebeamertemplate{itemize item}}
+\addtolength{\leftmargini}{\labelsep}
+
+%%%%%%%%%%%%%%%%%%% highlight something.
+\usepackage{colortbl}
+\makeatletter
+\let\@@magyar@captionfix\relax
+\makeatother
+
+%%%%%%%%%%%%%%%%%%% highlight something, v2
+\colorlet{lightGreen}{green!50!white}
+\colorlet{lightTeal}{teal!50!white}
+\colorlet{lightRed}{red!50!white}
+\newcommand{\highlightt}[2][yellow]{\mathchoice%
+    {\colorbox{#1}{$\displaystyle#2$}}%
+    {\colorbox{#1}{$\textstyle#2$}}%
+    {\colorbox{#1}{$\scriptstyle#2$}}%
+    {\colorbox{#1}{$\scriptscriptstyle#2$}}}%
+
+
+%%%%%%%%%%%%%%%%%%% for footnote-like bib.
+\newcommand\blfootnote[1]{%
+    \begingroup
+    \renewcommand\thefootnote{}\footnote{#1}%
+    \addtocounter{footnote}{-1}%
+    \endgroup
+}
+
+
+%%%%%%%%%%%%%%%%%%% The table highlighting for hypothesis discussion.
+\usepackage[beamer,customcolors]{hf-tikz}
+\usetikzlibrary{calc,arrows,shapes,positioning}
+\usetikzlibrary{overlay-beamer-styles}
+
+% To set the hypothesis highlighting boxes red.
+\tikzset{hl/.style={
+            set fill color=red!80!black!40,
+            set border color=red!80!black,
+        },
+}
+\newcommand{\tikznode}[2]{%
+    \ifmmode%
+        \tikz[remember picture,baseline=(#1.base),inner sep=0pt] \node (#1) {$#2$};%
+    \else
+        \tikz[remember picture,baseline=(#1.base),inner sep=0pt] \node (#1) {#2};%
+    \fi}
+
+\tikzset{
+    ncbar angle/.initial=-90,
+    ncbar/.style={
+            to path=(\tikztostart)
+            -- ($(\tikztostart)!#1!\pgfkeysvalueof{/tikz/ncbar angle}:(\tikztotarget)$)
+            -- ($(\tikztotarget)!($(\tikztostart)!#1!\pgfkeysvalueof{/tikz/ncbar angle}:(\tikztotarget)$)!\pgfkeysvalueof{/tikz/ncbar angle}:(\tikztostart)$)
+            -- (\tikztotarget)
+        },
+    ncbar/.default=0.5cm
+}
+\tikzset{
+    hyperlink node/.style={
+            alias=sourcenode,
+            append after command={
+                    let     \p1 = (sourcenode.north west),
+                    \p2=(sourcenode.south east),
+                    \n1={\x2-\x1},
+                    \n2={\y1-\y2} in
+                    node [inner sep=0pt, outer sep=0pt,anchor=north west,at=(\p1)] {\hyperlink{#1}{\XeTeXLinkBox{\phantom{\rule{\n1}{\n2}}}}}
+                    %xelatex needs \XeTeXLinkBox, won't create a link unless it
+                    %finds text --- rules don't work without \XeTeXLinkBox.
+                    %Still builds correctly with pdflatex and lualatex
+                }
+        }
+}
+
+
+%%%%%%%%%%%%%%%%%%% for tcolorbox
+\usepackage{tcolorbox}
+\tcbuselibrary{skins}
+\usepackage{bbding}
+\usepackage{array}
+\usepackage{arydshln}
+
+% Define a custom tcolorbox environment for takeaway messages
+\tcbset{
+    takeaway/.style={
+            colback=blue!10!white, % Background color
+            colframe=blue!75!black, % Frame color
+            coltitle=black, % Title color
+            boxrule=0.5mm, % Thickness of the frame
+            arc=3mm, % Arc size of the box corners
+            outer arc=0mm, % Outer arc
+            fonttitle=\bfseries, % Title font
+            title={Takeaway Message}, % Default title
+            attach boxed title to top center={
+                    yshift=-2mm,
+                    yshifttext=-1mm
+                },
+            boxed title style={
+                    size=small,
+                    colback=blue!75!black,
+                    before upper={\rule[-3pt]{0pt}{16pt}}, % vertical centering
+                    colframe=blue!75!black,
+                },
+            enhanced,
+        }
+}

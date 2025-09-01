@@ -1,0 +1,68 @@
+\usepackage{algorithm}
+\usepackage[noend]{algpseudocode}
+\newcommand{\SUB}[1]{\STATE \hspace{-0.15in} \textbf{#1}}
+\newcommand{\mycaptionof}[2]{\captionof{#1}{#2}}
+
+\algnewcommand\algorithmicforeach{\textbf{for each}}
+\algdef{S}[FOR]{ForEach}[1]{\algorithmicforeach\ #1\ \algorithmicdo}
+
+
+\errorcontextlines\maxdimen
+
+% begin vertical rule patch for algorithmicx (http://tex.stackexchange.com/questions/144840/vertical-loop-block-lines-in-algorithmicx-with-noend-option)
+\makeatletter
+% start with some helper code
+% This is the vertical rule that is inserted
+\newcommand*{\algrule}[1][\algorithmicindent]{\makebox[#1][l]{\hspace*{.5em}\thealgruleextra\vrule height \thealgruleheight depth \thealgruledepth}}%
+% its height and depth need to be adjustable
+\newcommand*{\thealgruleextra}{}
+\newcommand*{\thealgruleheight}{.75\baselineskip}
+\newcommand*{\thealgruledepth}{.25\baselineskip}
+
+\newcount\ALG@printindent@tempcnta
+\def\ALG@printindent{%
+	\ifnum \theALG@nested>0% is there anything to print
+	\ifx\ALG@text\ALG@x@notext% is this an end group without any text?
+		% do nothing
+	\else
+		\unskip
+		\addvspace{-1pt}% FUDGE to make the rules line up
+		% draw a rule for each indent level
+		\ALG@printindent@tempcnta=1
+		\loop
+		\algrule[\csname ALG@ind@\the\ALG@printindent@tempcnta\endcsname]%
+		\advance \ALG@printindent@tempcnta 1
+		\ifnum \ALG@printindent@tempcnta<\numexpr\theALG@nested+1\relax% can't do <=, so add one to RHS and use < instead
+			\repeat
+		\fi
+	\fi
+}%
+\usepackage{etoolbox}
+% the following line injects our new indent handling code in place of the default spacing
+\patchcmd{\ALG@doentity}{\noindent\hskip\ALG@tlm}{\ALG@printindent}{}{\errmessage{failed to patch}}
+\makeatother
+
+% the required height and depth are set by measuring the content to be shown
+% this means that the content is processed twice
+\newbox\statebox
+\newcommand{\myState}[1]{%
+	\setbox\statebox=\vbox{#1}%
+	\edef\thealgruleheight{\dimexpr \the\ht\statebox+1pt\relax}%
+	\edef\thealgruledepth{\dimexpr \the\dp\statebox+1pt\relax}%
+	\ifdim\thealgruleheight<.75\baselineskip
+		\def\thealgruleheight{\dimexpr .75\baselineskip+1pt\relax}%
+	\fi
+	\ifdim\thealgruledepth<.25\baselineskip
+		\def\thealgruledepth{\dimexpr .25\baselineskip+1pt\relax}%
+	\fi
+	%\showboxdepth=100
+	%\showboxbreadth=100
+	%\showbox\statebox
+	\State #1%
+	%\State \usebox\statebox
+	%\State \unvbox\statebox
+	%reset in case the next command is not wrapped in \myState
+	\def\thealgruleheight{\dimexpr .75\baselineskip+1pt\relax}%
+	\def\thealgruledepth{\dimexpr .25\baselineskip+1pt\relax}%
+}
+% end vertical rule patch for algorithmicx
