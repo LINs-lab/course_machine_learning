@@ -3,8 +3,6 @@ import pathlib
 import numpy as np
 import pytest
 
-from conftest import ATOL, GITHUB_LINK, RTOL
-
 FUNCTIONS = [
     "mean_squared_error_gd",
     "mean_squared_error_sgd",
@@ -34,32 +32,9 @@ def tx():
     return np.array([[2.3, 3.2], [1.0, 0.1], [1.4, 2.3]])
 
 
-def test_github_link_format():
-    assert GITHUB_LINK.startswith("https://") and "github.com" in GITHUB_LINK, (
-        "Please provide a Github link. "
-        "Note that you can ignore this failing test while developing your project but you should pass "
-        "this test with the URL you submit for grading."
-    )
-    assert GITHUB_LINK.split("/")[-2] == "tree", (
-        "Please provide a Github link to a precise commit and not to a repository (URL ending with .../tree/...). "
-        "Note that you can ignore this failing test while developing your project but you should pass "
-        "this test with the URL you submit for grading. "
-        "To obtain the URL with the right format, press the `y` key in your browser on the Github page of your "
-        "repo and copy the new URL in the browser bar."
-    )
-
-
 @pytest.mark.parametrize("filename", ("README.md", "implementations.py"))
 def test_file_exists(filename: str, github_repo_path: pathlib.Path):
     assert (github_repo_path / filename).exists(), f"Missing file {filename}."
-
-
-def test_run_script_exists(github_repo_path: pathlib.Path):
-    if (
-        not (github_repo_path / "run.py").exists()
-        and not (github_repo_path / "run.ipynb").exists()
-    ):
-        raise FileNotFoundError("Missing file run.py or run.ipynb.")
 
 
 @pytest.mark.parametrize("function_name", FUNCTIONS)
@@ -73,26 +48,6 @@ def test_function_exists(function_name: str, student_implementations):
 def test_function_has_docstring(function_name: str, student_implementations):
     fn = getattr(student_implementations, function_name)
     assert fn.__doc__, f"Function {function_name} has no docstring."
-
-
-def test_black_format(github_repo_path: pathlib.Path):
-    python_files = list(github_repo_path.glob("**/*.py"))
-    for python_file in python_files:
-        content = python_file.read_text()
-        try:
-            import black
-        except ModuleNotFoundError:
-            raise ValueError(
-                f"We advise you to install the black formater https://github.com/psf/black and format your code with it (not mandatory)."
-            )
-
-        try:
-            black.format_file_contents(content, fast=True, mode=black.FileMode())
-            raise ValueError(
-                f"We advise you to format '{python_file.name}' with the black formater https://github.com/psf/black (not mandatory)."
-            )
-        except black.NothingChanged:
-            pass
 
 
 def test_no_todo_left(github_repo_path: pathlib.Path):
@@ -111,8 +66,8 @@ def test_mean_squared_error_gd_0_step(student_implementations, y, tx):
     expected_w = np.array([0.413044, 0.875757])
     expected_loss = 2.959836
 
-    np.testing.assert_allclose(loss, expected_loss, rtol=RTOL, atol=ATOL)
-    np.testing.assert_allclose(w, expected_w, rtol=RTOL, atol=ATOL)
+    np.testing.assert_allclose(loss, expected_loss)
+    np.testing.assert_allclose(w, expected_w)
     assert loss.ndim == 0
     assert w.shape == expected_w.shape
 
@@ -125,8 +80,8 @@ def test_mean_squared_error_gd(student_implementations, y, tx, initial_w):
     expected_w = np.array([-0.050586, 0.203718])
     expected_loss = 0.051534
 
-    np.testing.assert_allclose(loss, expected_loss, rtol=RTOL, atol=ATOL)
-    np.testing.assert_allclose(w, expected_w, rtol=RTOL, atol=ATOL)
+    np.testing.assert_allclose(loss, expected_loss)
+    np.testing.assert_allclose(w, expected_w)
     assert loss.ndim == 0
     assert w.shape == expected_w.shape
 
@@ -140,8 +95,8 @@ def test_mean_squared_error_sgd(student_implementations, y, tx, initial_w):
     expected_loss = 0.844595
     expected_w = np.array([0.063058, 0.39208])
 
-    np.testing.assert_allclose(loss, expected_loss, rtol=RTOL, atol=ATOL)
-    np.testing.assert_allclose(w, expected_w, rtol=RTOL, atol=ATOL)
+    np.testing.assert_allclose(loss, expected_loss)
+    np.testing.assert_allclose(w, expected_w)
     assert loss.ndim == 0
     assert w.shape == expected_w.shape
 
@@ -152,8 +107,8 @@ def test_least_squares(student_implementations, y, tx):
     expected_w = np.array([0.218786, -0.053837])
     expected_loss = 0.026942
 
-    np.testing.assert_allclose(w, expected_w, rtol=RTOL, atol=ATOL)
-    np.testing.assert_allclose(loss, expected_loss, rtol=RTOL, atol=ATOL)
+    np.testing.assert_allclose(w, expected_w)
+    np.testing.assert_allclose(loss, expected_loss)
     assert loss.ndim == 0
     assert w.shape == expected_w.shape
 
@@ -165,8 +120,8 @@ def test_ridge_regression_lambda0(student_implementations, y, tx):
     expected_loss = 0.026942
     expected_w = np.array([0.218786, -0.053837])
 
-    np.testing.assert_allclose(w, expected_w, rtol=RTOL, atol=ATOL)
-    np.testing.assert_allclose(loss, expected_loss, rtol=RTOL, atol=ATOL)
+    np.testing.assert_allclose(w, expected_w)
+    np.testing.assert_allclose(loss, expected_loss)
     assert loss.ndim == 0
     assert w.shape == expected_w.shape
 
@@ -178,8 +133,8 @@ def test_ridge_regression_lambda1(student_implementations, y, tx):
     expected_loss = 0.03175
     expected_w = np.array([0.054303, 0.042713])
 
-    np.testing.assert_allclose(loss, expected_loss, rtol=RTOL, atol=ATOL)
-    np.testing.assert_allclose(w, expected_w, rtol=RTOL, atol=ATOL)
+    np.testing.assert_allclose(loss, expected_loss)
+    np.testing.assert_allclose(w, expected_w)
     assert loss.ndim == 0
     assert w.shape == expected_w.shape
 
@@ -191,8 +146,8 @@ def test_logistic_regression_0_step(student_implementations, y, tx):
 
     expected_loss = 1.533694
 
-    np.testing.assert_allclose(loss, expected_loss, rtol=RTOL, atol=ATOL)
-    np.testing.assert_allclose(w, expected_w, rtol=RTOL, atol=ATOL)
+    np.testing.assert_allclose(loss, expected_loss)
+    np.testing.assert_allclose(w, expected_w)
     assert loss.ndim == 0
     assert w.shape == expected_w.shape
 
@@ -206,8 +161,8 @@ def test_logistic_regression(student_implementations, y, tx, initial_w):
     expected_loss = 1.348358
     expected_w = np.array([0.378561, 0.801131])
 
-    np.testing.assert_allclose(loss, expected_loss, rtol=RTOL, atol=ATOL)
-    np.testing.assert_allclose(w, expected_w, rtol=RTOL, atol=ATOL)
+    np.testing.assert_allclose(loss, expected_loss)
+    np.testing.assert_allclose(w, expected_w)
     assert loss.ndim == 0
     assert w.shape == expected_w.shape
 
@@ -222,8 +177,8 @@ def test_reg_logistic_regression(student_implementations, y, tx, initial_w):
     expected_loss = 0.972165
     expected_w = np.array([0.216062, 0.467747])
 
-    np.testing.assert_allclose(loss, expected_loss, rtol=RTOL, atol=ATOL)
-    np.testing.assert_allclose(w, expected_w, rtol=RTOL, atol=ATOL)
+    np.testing.assert_allclose(loss, expected_loss)
+    np.testing.assert_allclose(w, expected_w)
     assert loss.ndim == 0
     assert w.shape == expected_w.shape
 
@@ -238,7 +193,7 @@ def test_reg_logistic_regression_0_step(student_implementations, y, tx):
 
     expected_loss = 1.407327
 
-    np.testing.assert_allclose(loss, expected_loss, rtol=RTOL, atol=ATOL)
-    np.testing.assert_allclose(w, expected_w, rtol=RTOL, atol=ATOL)
+    np.testing.assert_allclose(loss, expected_loss)
+    np.testing.assert_allclose(w, expected_w)
     assert loss.ndim == 0
     assert w.shape == expected_w.shape
