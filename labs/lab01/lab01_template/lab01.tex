@@ -1,0 +1,175 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage[colorlinks=true, linkcolor=blue, urlcolor=blue]{hyperref}
+
+\newcommand{\Problem}[2]{\vspace{2mm}\noindent\textbf{Problem #1 (#2).}\par\nopagebreak\vspace{1mm}}
+
+\begin{document}
+
+\begin{center}
+{\Large \textbf{Lab 01 (graded) --- Mathematical Foundation of Machine Learning}}\\[2mm]
+Fall 2026\\[1mm]
+\textbf{Deadline:} 23.59 on Sep.~10, 2026 \quad $\cdot$ \quad submit a PDF to \href{https://canvas.westlake.edu.cn/courses/2063}{canvas}
+\end{center}
+
+\medskip
+\noindent
+\textbf{Name:} \rule{0.35\textwidth}{0.4pt} \hfill \textbf{Student ID:} \rule{0.3\textwidth}{0.4pt}
+
+\medskip
+\noindent\fbox{\parbox{\dimexpr\textwidth-2\fboxsep-2\fboxrule}{%
+\textbf{Instructions.} Write your solutions below each problem, compile this file to a PDF, and \textcolor{red}{\textbf{submit both the \texttt{.tex} file and the PDF to canvas}}. There are 10 problems, each worth 10 points (total: 100 points). Justify all your answers: a bare result without reasoning earns no credit.}}
+
+\bigskip
+\hrule
+\bigskip
+\section*{Part I: Review of Linear Algebra}\Problem{1}{Orthogonal Projections and Least Squares (10 pts)}{
+
+    Let \( V \subseteq \mathbb{R}^n \) be a subspace, and let \( P \in \mathbb{R}^{n \times n} \) be the matrix of the orthogonal projection onto \( V \), i.e., \( \operatorname{range}(P) = V \), \( P^2 = P \), and \( P^\top = P \). For \( x \in \mathbb{R}^n \) and any \( y \in V \), prove that
+    \begin{equation}
+        \lVert x - Px \rVert_2 \leq \lVert x - y \rVert_2 \, ,
+    \end{equation}
+    with equality if and only if \( y = Px \).
+    \emph{(This is the geometric heart of least-squares regression: among all predictions lying in the span of the features, the projection is the closest one.)}
+
+}
+\Problem{2}{Gradient of the Squared Loss and the Normal Equations (10 pts)}{
+
+    Let \( X \in \mathbb{R}^{n \times d} \), \( y \in \mathbb{R}^n \), and consider the squared loss
+    \begin{equation}
+        f(w) = \lVert Xw - y \rVert_2^2, \qquad w \in \mathbb{R}^d \, .
+    \end{equation}
+    \begin{enumerate}[leftmargin=16pt, nosep]
+        \item Show that \( \nabla f(w) = 2 X^\top (Xw - y) \).
+        \item Show that \( f \) attains its minimum exactly at the solutions \( w^\star \) of the normal equations \( X^\top X w^\star = X^\top y \), and that such a \( w^\star \) always exists.
+        \item Show that the minimizer is unique if and only if \( \operatorname{rank}(X) = d \) (i.e., the columns of \( X \) are linearly independent).
+    \end{enumerate}
+
+}
+\Problem{3}{Positive Semidefinite Matrices and Square Roots (10 pts)}{
+
+    Let \( A \in \mathbb{R}^{n \times n} \) be symmetric. We say \( A \) is positive semidefinite (PSD), written \( A \succeq 0 \), if \( x^\top A x \geq 0 \) for all \( x \in \mathbb{R}^n \).
+    \begin{enumerate}[leftmargin=16pt, nosep]
+        \item Prove that \( A \succeq 0 \) if and only if all eigenvalues of \( A \) are nonnegative.
+        \item Prove that if \( A \succeq 0 \), there exists a symmetric PSD matrix \( B \) with \( B^2 = A \). Moreover, show \( B \) commutes with every matrix that commutes with \( A \).
+        \item Show that for any matrix \( M \in \mathbb{R}^{m \times n} \), the Gram matrix \( M^\top M \) is PSD, and \( \operatorname{rank}(M^\top M) = \operatorname{rank}(M) \).
+    \end{enumerate}
+    \emph{(PSD matrices appear throughout ML as covariance matrices, kernel (Gram) matrices, and Hessian matrices of convex losses.)}
+
+}
+\Problem{4}{Sylvester's Determinant Identity (10 pts)}{
+
+    Let \( A \in \mathbb{R}^{m \times n} \) and \( B \in \mathbb{R}^{n \times m} \).
+    \begin{enumerate}[leftmargin=16pt, nosep]
+        \item Prove that
+        \begin{equation}
+            \det( I_m + A B ) = \det( I_n + B A ) \, .
+        \end{equation}
+        \emph{(Hint: compute the determinant of the block matrix \( \begin{pmatrix} I_m & A \\ B & I_n \end{pmatrix} \) by two different sequences of row and column operations.)}
+        \item Deduce that for every \( \lambda \in \mathbb{R} \) (assume \( m \geq n \) for simplicity),
+        \begin{equation}
+            \det( \lambda I_m - A B ) = \lambda^{m-n} \det( \lambda I_n - B A ) \, ,
+        \end{equation}
+        and conclude that \( AB \) and \( BA \) have exactly the same nonzero eigenvalues, counted with algebraic multiplicity.
+        \item Prove that for every integer \( k \geq 1 \),
+        \begin{equation}
+            \operatorname{tr}\big( (AB)^k \big) = \operatorname{tr}\big( (BA)^k \big) \, .
+        \end{equation}
+    \end{enumerate}
+
+}
+\Problem{5}{Sylvester and Frobenius Rank Inequalities (10 pts)}{
+
+    \begin{enumerate}[leftmargin=16pt, nosep]
+        \item Let \( A \in \mathbb{R}^{m \times n} \) and \( B \in \mathbb{R}^{n \times p} \). Prove \emph{Sylvester's rank inequality}:
+        \begin{equation}
+            \operatorname{rank}(AB) \geq \operatorname{rank}(A) + \operatorname{rank}(B) - n \, .
+        \end{equation}
+        \item Let \( A \in \mathbb{R}^{m \times n} \), \( B \in \mathbb{R}^{n \times p} \), \( C \in \mathbb{R}^{p \times q} \). Prove the \emph{Frobenius rank inequality}:
+        \begin{equation}
+            \operatorname{rank}(AB) + \operatorname{rank}(BC) \leq \operatorname{rank}(B) + \operatorname{rank}(ABC) \, .
+        \end{equation}
+        \item Deduce from (a) that if \( AB = 0 \), then \( \operatorname{rank}(A) + \operatorname{rank}(B) \leq n \), and give an example of a pair \( (A, B) \) with \( AB = 0 \) for which equality holds.
+    \end{enumerate}
+
+}
+\section*{Part II: Review of Probability Theory}
+\Problem{6}{Cauchy--Schwarz Inequality for Random Variables (10 pts)}{
+
+    Let \( X \) and \( Y \) be random variables with \( \mathbb{E}[X^2] < \infty \) and \( \mathbb{E}[Y^2] < \infty \). Prove that
+    \begin{equation}
+        \left( \mathbb{E}[XY] \right)^2 \leq \mathbb{E}[X^2] \, \mathbb{E}[Y^2] \, ,
+    \end{equation}
+    and characterize when equality holds.
+    \emph{(Taking \( Y = \mathbf{1}\) recovers \( \operatorname{Var}(X) \geq 0 \); the equality case is the basis of the linear least-squares predictor of \( Y \) from \( X \).)}
+
+}
+\Problem{7}{Jensen's Inequality and Maximum Likelihood (10 pts)}{
+
+    \begin{enumerate}[leftmargin=16pt, nosep]
+        \item Let \( X \) be a positive random variable with \( \mathbb{E}[X] < \infty \). Prove that
+        \begin{equation}
+            \mathbb{E}[\log X] \leq \log \mathbb{E}[X] \, .
+        \end{equation}
+        \item Use part (a) to show that for any two probability mass functions \( p \) and \( q \) on a finite set \( \mathcal{X} \) with \( q(x) > 0 \) whenever \( p(x) > 0 \), the Kullback--Leibler divergence satisfies
+        \begin{equation}
+            D_{\mathrm{KL}}(p \,\Vert\, q) = \sum_{x \in \mathcal{X}} p(x) \log \frac{p(x)}{q(x)} \geq 0 \, ,
+        \end{equation}
+        with equality if and only if \( p = q \).
+    \end{enumerate}
+    \emph{(Part (b) is why maximum likelihood works: the expected log-likelihood is maximized by the true distribution.)}
+
+}
+\Problem{8}{Markov's Inequality and the Union Bound (10 pts)}{
+
+    \begin{enumerate}[leftmargin=16pt, nosep]
+        \item Let \( X \) be a nonnegative random variable and \( t > 0 \). Prove Markov's inequality:
+        \begin{equation}
+            P( X \geq t ) \leq \frac{\mathbb{E}[X]}{t} \, .
+        \end{equation}
+        \item Let \( X_1, \dots, X_n \) be i.i.d.\ nonnegative random variables with finite mean \( \mu \). Using part (a) and the union bound, prove that
+        \begin{equation}
+            P\left( \max_{1 \leq i \leq n} X_i \geq t \right) \leq \frac{n \mu}{t} \, .
+        \end{equation}
+        \item Suppose additionally that \( \mathbb{E}[X^2] < \infty \). Show that \( \frac{1}{n} \max_{1 \leq i \leq n} X_i \to 0 \) in probability as \( n \to \infty \), i.e., for every \( \varepsilon > 0 \),
+        \begin{equation}
+            P\left( \frac{1}{n} \max_{1 \leq i \leq n} X_i \geq \varepsilon \right) \longrightarrow 0 \, .
+        \end{equation}
+    \end{enumerate}
+    \emph{(``A sample average cannot be dominated by a single lucky outlier''---the union bound is the workhorse behind empirical-process arguments in learning theory.)}
+
+}
+\Problem{9}{The Law of Rare Events (10 pts)}{
+
+    \begin{enumerate}[leftmargin=16pt, nosep]
+        \item Let \( \lambda > 0 \) be fixed, and let \( X_n \sim \mathrm{Binomial}(n, \lambda/n) \). Prove that for every fixed integer \( k \geq 0 \),
+        \begin{equation}
+            \lim_{n \to \infty} P( X_n = k ) = e^{-\lambda} \frac{\lambda^k}{k!} \, ,
+        \end{equation}
+        i.e., \( X_n \) converges in distribution to a Poisson random variable with parameter \( \lambda \).
+        \item Let \( N \sim \mathrm{Poisson}(\lambda) \). Prove that
+        \begin{equation}
+            P( N \text{ is even} ) = \frac{1 + e^{-2\lambda}}{2} \, .
+        \end{equation}
+    \end{enumerate}
+
+}
+\Problem{10}{The Minimum of Independent Exponential Random Variables (10 pts)}{
+
+    Let \( X_1, \dots, X_n \) be independent random variables with \( X_i \sim \mathrm{Exp}(\lambda_i) \) (rate \( \lambda_i > 0 \), i.e., \( P(X_i > t) = e^{-\lambda_i t} \) for \( t \geq 0 \)). Define
+    \begin{equation}
+        M = \min_{1 \leq i \leq n} X_i \, , \qquad I = \operatorname*{arg\,min}_{1 \leq i \leq n} X_i
+    \end{equation}
+    (the index of the smallest \( X_i \); it is uniquely determined with probability \( 1 \)).
+    \begin{enumerate}[leftmargin=16pt, nosep]
+        \item Show that \( M \sim \mathrm{Exp}(\Lambda) \), where \( \Lambda = \lambda_1 + \cdots + \lambda_n \).
+        \item Show that \( P( I = k ) = \dfrac{\lambda_k}{\Lambda} \) for each \( k \).
+        \item Show that \( I \) and \( M \) are independent.
+    \end{enumerate}
+
+}
+
+\end{document}
