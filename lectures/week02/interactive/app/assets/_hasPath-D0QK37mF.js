@@ -1,0 +1,1 @@
+import{i as l,r as m}from"./get-DuxuLRGI.js";import{O as p,b as f,g,p as v}from"./isArrayLikeObject-Dqg6_6m7.js";function b(r,t,s){t=l(t,r);for(var n=-1,a=t.length,e=!1;++n<a;){var i=m(t[n]);if(!(e=r!=null&&s(r,i)))break;r=r[i]}return e||++n!=a?e:(a=r==null?0:r.length,!!a&&g(a)&&f(i,a)&&(p(r)||v(r)))}var h=b;export{h as t};
