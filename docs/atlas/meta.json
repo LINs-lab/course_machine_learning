@@ -1,0 +1,26 @@
+{
+  "last_refresh_sha": "a3763a290eea5330c6d32a6618671a2047744d91",
+  "last_refresh_time": "2026-09-09T15:43:18Z",
+  "layer_versions": {
+    "L1": "a72db646e0ddc0d4fe45608d086b1c7b3444fe3ed042baf104c5a9902b69a957"
+  },
+  "project_root": "/Users/tlin/Dropbox/westlake/lectures/westlake_bachelor_ml_course/repos/course_machine_learning",
+  "languages_detected": [
+    "python"
+  ],
+  "scan_stats": {
+    "python_files": 5,
+    "total_loc": 644,
+    "modules_top_level": 3
+  },
+  "scope": {
+    "include": [],
+    "exclude": []
+  },
+  "quality_metrics": {
+    "docstring_coverage_pct": 0,
+    "modules_zero_docstring": 2,
+    "api_surface_avg_per_module": 8.6,
+    "signal_class": "low"
+  }
+}
