@@ -1,0 +1,26 @@
+% ======================================================================
+%  Section 2 RELATED WORK -- budget: 0.5-0.75 page
+% ======================================================================
+%  Organize by theme, one paragraph each, and end every paragraph with a single sentence stating how we differ.
+%  Three natural threads for this project:
+%   (a) Self-referential / self-improving systems: G\"odel machine \citep{schmidhuber2009godel}, STOP \citep{zelikman2023stop}, Darwin-G\"odel Machine \citep{zhang2025dgm}.
+%   (b) LLM research-automation agents: AI Scientist \citep{lu2024aiscientist}, MLAgentBench \citep{huang2024mlagentbench}, RE-Bench \citep{wijk2024rebench}.
+%   (c) Automated algorithm discovery / optimization: AutoML-Zero \citep{real2020automlzero}, OPRO \citep{yang2024opro}, AlphaEvolve \citep{novikov2025alphaevolve}.
+%
+%  Conventions: high citation density (3-8 per paragraph); \citet when authors are the subject, \citep for parenthetical use; cite only what you have actually read, and every citation must be used by a sentence (no padding).
+%  The closing positioning paragraph is mandatory ("Ours differs in that ..."): related work without positioning is a reference list, and reviewers deduct for it.
+% ======================================================================
+\section{Related Work}
+\label{sec:related}
+
+\paragraph{Self-referential and self-improving systems.}
+\todo{From the theoretical origin \citep{schmidhuber2009godel} to LLM-era self-rewriting \citep{zelikman2023stop,zhang2025dgm}. Point out: those works rewrite \emph{task-solving code}; we rewrite the \emph{research strategy itself}, under a guard.}
+
+\paragraph{LLM agents for research automation.}
+\todo{\citep{lu2024aiscientist,huang2024mlagentbench,wijk2024rebench}: the state of end-to-end research agents and their evaluation. Point out: they use the LLM as the engine; we freeze the engine and make the research strategy itself the replaceable, measurable object.}
+
+\paragraph{Automated algorithm discovery.}
+\todo{\citep{real2020automlzero,yang2024opro,novikov2025alphaevolve}: searched/evolved algorithms often beat hand design but demand large compute and human-in-the-loop evaluation. Point out: we study the same question under CPU-second, deterministic, reproducible constraints.}
+
+\paragraph{Positioning.}
+\todo{Two or three closing sentences: relative to everything above, what is the unique coordinate of this work (frozen engine + strategy-layer science + strict keep/discard causal measurement)?}

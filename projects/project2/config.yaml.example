@@ -1,0 +1,24 @@
+# Autoresearch-Base configuration example.
+# Copy to config.yaml and load via rsi.config.set_config_path("config.yaml").
+# File values override the built-in registry defaults (rsi/config.py).
+# Credential-shaped keys (api_key, token, ...) are refused by construction —
+# providers read secrets from environment variables only.
+
+engine:
+  cycles: 6
+  middle_every: 3
+  seed: 7
+  min_support: 2
+  saturation_threshold: 0.8
+  improver: naive        # naive | noop
+  proposer: heuristic
+
+llm:
+  provider: echo         # echo (keyless default) | openai_compat
+  # openai_compat settings (key stays in RSI_OPENAI_API_KEY, never here):
+  # openai_compat:
+  #   base_url: https://your-endpoint/v1
+  #   model: your-model
+
+tasks:
+  dir: tasks

@@ -1,0 +1,78 @@
+# I-Q Question node (frozen v0.2 §3.1).
+$schema: https://json-schema.org/draft/2020-12/schema
+$id: iq.question
+title: I-Q Question
+type: object
+additionalProperties: false
+required: [id, statement, scope, benchmark_ref, status, version]
+properties:
+  id:
+    type: string
+    pattern: '^[a-z0-9][a-z0-9._-]*$'
+  statement:
+    type: string
+    minLength: 1
+  scope:
+    type: string
+    minLength: 1
+    description: 适用范围
+  benchmark_ref:
+    type: object
+    additionalProperties: false
+    required: [name, epoch]
+    properties:
+      name: {type: string, minLength: 1}
+      epoch: {type: string, minLength: 1}
+  best_result:
+    type: [object, "null"]
+    additionalProperties: false
+    required: [evidence_id, score]
+    properties:
+      evidence_id: {type: string, minLength: 1}
+      score: {type: number}
+      # Base-system additive extension: the epoch the score was measured
+      # under. Cross-epoch scores are NOT comparable (benchmark.md), so the
+      # ratchet only compares within one epoch and a keep from a newer epoch
+      # replaces the record wholesale.
+      epoch: {type: string}
+  uncertainty:
+    type: array
+    items: {type: string}
+    default: []
+  saturation:
+    type: number
+    minimum: 0
+    maximum: 1
+    default: 0
+  status:
+    type: string
+    enum: [open, partially_answered, refined, merged, retired, answered]
+  edges:
+    type: array
+    default: []
+    items:
+      type: object
+      additionalProperties: false
+      required: [type, to]
+      properties:
+        type:
+          type: string
+          enum: [depends_on, refines, challenges, merged_into, spawns]
+        to: {type: string, minLength: 1}
+        source: {type: [string, "null"], description: external E/H id for spawns edges}
+        confidence: {type: [number, "null"], minimum: 0, maximum: 1}
+  version:
+    type: integer
+    minimum: 1
+  # Base-system additive extension: the platform's attach_evidence / transition
+  # ops persist these on the stored record (the frozen v0.2 source validated
+  # only at create time and stored them unvalidated). Declaring them keeps
+  # stored records strictly schema-valid for readers/exporters.
+  evidence_refs:
+    type: array
+    items: {type: string, minLength: 1}
+    default: []
+  conversion_events:
+    type: array
+    items: {type: [object, "null"]}
+    default: []

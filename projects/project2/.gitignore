@@ -1,0 +1,33 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.eggs/
+
+# Environments / tooling
+.venv/
+venv/
+.pytest_cache/
+.coverage
+
+# RSI runtime state (regenerable; the task bundles under tasks/ are the committed truth)
+out/
+demo-out/
+runs/
+state/
+kb/
+*.sqlite
+*.sqlite.gate
+
+# Editors / OS
+.idea/
+.vscode/
+.DS_Store
+
+# LLM session caches (regenerable runtime state, very large)
+experiments/*/sessions/
+
+.ruff_cache/
+.claude/

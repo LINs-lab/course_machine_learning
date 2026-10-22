@@ -1,0 +1,13 @@
+{
+  "ood_accuracy": 0.3333333333333333,
+  "id_accuracy": 0.9333333333333333,
+  "observations": {
+    "seed": 7,
+    "warp_exponent": 2.0,
+    "n_train": 90,
+    "n_id": 15,
+    "n_ood": 45,
+    "epoch": "",
+    "ood_minus_id": -0.6
+  }
+}

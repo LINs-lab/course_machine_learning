@@ -1,0 +1,36 @@
+% ======================================================================
+%  Section 3 THE BASE SYSTEM -- budget: ~0.75 page
+% ======================================================================
+%  Purpose: give the reader just enough to understand which seams your strategies plug into in Section 4 -- nothing more.
+%  This is the given machinery, not your contribution; writing too much here dilutes the contribution signal.
+%  Three things suffice:
+%   1. The three loops (fast/middle/slow) and what each does; one small figure or one tight paragraph.
+%   2. The frozen contracts and the trust boundary (EDITABLE\_SURFACES, guard layers, keep|discard|fail).
+%   3. The strategy-seam table (Protocols: Proposer / SelfImprover / Gates / Diagnostician / ...), one line per seam with a pointer to the Section 4 subsection that fills it.
+%
+%  A system figure is strongly recommended (Figure 1): the three loops plus the self-edit circuit.
+%  Figure conventions: vector PDF; in-figure text no smaller than footnote size (~7pt at final size); the caption must stand alone (understandable without the body text).
+% ======================================================================
+\section{The Base System}
+\label{sec:system}
+
+\todo{Two or three sentences: given a task bundle (one editable file + one gate metric + a fixed budget), the engine runs three nested loops; reference Figure~\ref{fig:system}.}
+
+\paragraph{Loops.}
+\todo{Fast: propose $\to$ implement $\to$ run $\to$ finalize $\to$ analyze, single-variable experiments. Middle: the benchmark is frozen within an epoch and upgraded across epochs; self-edits are arbitrated here. Slow: hypotheses succeed each other on a typed-edge question graph; saturated questions spawn children.}
+
+\paragraph{Frozen contracts and the trust boundary.}
+\todo{The concept contracts, the verdict trichotomy, the guard layers; emphasize that self-edits may only land in the sentinel region of \texttt{state/strategy.py}, under the applying $\to$ observing $\to$ kept|reverted lifecycle with immediate re-entry.}
+
+\paragraph{Strategy seams.}
+\todo{A small table: seam name / Protocol / naive default behavior / where your implementation lives (section pointer). This table is the bridge from Section 3 to Section 4 and reviewers respond well to it.}
+
+% Placeholder figure: replace the \fbox with
+%   \includegraphics[width=\linewidth]{figures/system.pdf}
+% once the diagram exists. Note the label must be INSIDE \caption's float.
+\begin{figure}[t]
+  \centering
+  \fbox{\parbox[c][5cm][c]{0.9\linewidth}{\centering \todo{System diagram: three loops + self-edit circuit; vector PDF; frozen components grey, yours in color.}}}
+  \caption{The three loops and the self-edit circuit. \todo{Make the caption complete: one clause per loop, and mark which components are frozen (grey) versus implemented in this work (color).}}
+  \label{fig:system}
+\end{figure}

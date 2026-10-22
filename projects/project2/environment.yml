@@ -1,0 +1,15 @@
+# Conda environment for Autoresearch-Base.
+# Setup:  conda env create -f environment.yml
+#         conda activate autoresearch-base
+# Update: conda env update -f environment.yml --prune
+name: autoresearch-base
+channels:
+  - conda-forge
+dependencies:
+  - python=3.11
+  - pip
+  - graphviz  # `dot` — used by scripts/report.py for the question-graph
+              # figure's hierarchical layout (report.py falls back to a
+              # built-in layered layout when it is absent)
+  - pip:
+      - -e .[dev,report]

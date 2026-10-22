@@ -1,0 +1,36 @@
+% ======================================================================
+%  Section 6 ANALYSIS -- budget: 1.5-2 pages; as important as Section 5
+% ======================================================================
+%  The main results show THAT it works; this section answers WHY it works and WHEN it fails.
+%  The assignment's core narrative also lives here: the end-to-end causal story of at least one promoted self-edit (what changed in state/strategy.py, and which measured quantity improved after re-entry).
+%
+%  Suggested subsections (keep whichever you have material for):
+%   6.1 Ablation: how much each component loses when removed -- ablation is the only evidence attributing the gain.
+%   6.2 Anatomy of a promoted self-edit: waste signal $\to$ guard passage $\to$ observing-window measurement $\to$ kept. Pair with a before/after trajectory figure.
+%   6.3 Where it fails: negative results and failure modes. Writing these honestly earns credit.
+%   6.4 Cost: wall-clock / per-cycle overhead, proving the strategy is not trading compute for yield.
+%
+%  Conventions: open each analysis subsection with a one-sentence research question and close it with a one-sentence answer. Diagnostic figures (keep-rate curves, edit-response plots, question-graph snapshots) must be vector PDFs.
+% ======================================================================
+\section{Results}
+\label{sec:analysis}
+
+\subsection{Performance}
+\label{sec:analysis:performance}
+\todo{Research question: what is the overall performance across tasks? Show the main metric (e.g., task scores), with error bars. One-sentence answer: the strategy improves yield by X\% over baseline.}
+
+\subsection{Anatomy of a Promoted Self-Edit}
+\label{sec:analysis:selfedit}
+\todo{The assignment's core requirement, told as a timeline: which waste pattern appeared at cycle N $\to$ which edit the improver proposed (quote the key before/after fragment of \texttt{state/strategy.py}) $\to$ each guard layer's verdict $\to$ the M-cycle observing-window comparison $\to$ the kept/reverted ruling. Pair it with a trajectory figure that marks the promotion moment with a vertical line.}
+
+\subsection{Failure Modes}
+\label{sec:analysis:failure}
+\todo{Document at least one real failure: improver proposals that get reverted, noise-induced false keeps, question-graph evolution walking into a dead end. If you omit negative results, reviewers will ask.}
+
+\subsection{Cost-Effectiveness}
+\label{sec:analysis:cost}
+\todo{Extra wall-clock per cycle, token spend (if the LLM seam is used), and whether determinism is preserved.}
+
+\subsection{Module Ablations}
+\label{sec:analysis:ablation}
+\todo{Research question: which component produces the main gain? Table: full system versus one component removed at a time. When interpreting, distinguish "significant drop" from "within noise".}

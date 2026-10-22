@@ -1,0 +1,32 @@
+% ======================================================================
+%  Appendix: Reproducibility -- the trust foundation reviewers check first
+% ======================================================================
+%  Goal: a reviewer who does not know you can re-produce the main table within ten minutes using only this appendix.
+%  The system's determinism (same seed, same result) is a strength -- state it as one.
+% ======================================================================
+\section{Reproducibility Details}
+\label{app:repro}
+
+\paragraph{Environment.}
+\todo{OS, Python version, \texttt{environment.yml}; CPU model and memory.}
+
+\paragraph{Exact commands.}
+\todo{The full command behind every row of the main table, for example:}
+% \begin{verbatim}
+% python -m rsi.core --task tasks/iris-ood --out out/main --cycles 292 --seed 7
+% python scripts/report.py --run out/main --out report/
+% \end{verbatim}
+
+\paragraph{Seeds.}
+\todo{The full seed list; state that seeds were fixed in advance, not selected post hoc.}
+
+\paragraph{Configuration.}
+\todo{The full config.yaml or its diff from default; every non-default hyperparameter.}
+
+\paragraph{Self-edit ledger.}
+\todo{The complete ledger of promoted and reverted edits (terminal states), backing the causal story in \S\ref{sec:analysis:selfedit}.}
+
+% ======================================================================
+\section{Extended Results}
+\label{app:extended}
+\todo{What did not fit in the body: per-seed trajectories, additional ablations, question-graph end states, the full failure-case catalog. Reviewers are not obliged to read the appendix -- every core conclusion must stand in the body alone.}

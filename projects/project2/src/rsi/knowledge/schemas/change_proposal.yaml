@@ -1,0 +1,50 @@
+# ChangeProposal (frozen v0.2 §2.3): the single write channel for engine/human
+# writes into I-Q / I-H / I-S, gated L0/L1/L2.
+$schema: https://json-schema.org/draft/2020-12/schema
+$id: rsi.change_proposal
+title: ChangeProposal
+type: object
+additionalProperties: false
+required: [proposal_id, idempotency_key, actor, targets, op, params]
+properties:
+  proposal_id:
+    type: string
+    minLength: 1
+  idempotency_key:
+    type: string
+    minLength: 1
+  actor:
+    type: string
+    enum: [engine, human, service]
+  targets:
+    type: array
+    minItems: 1
+    items:
+      type: object
+      additionalProperties: false
+      required: [interface, object_id]
+      properties:
+        interface:
+          type: string
+          enum: [I-Q, I-H, I-S]
+        object_id: {type: string}
+        base_version: {type: [integer, "null"], minimum: 1}
+  op:
+    type: string
+    # "update" is a base-system additive extension (in-place field updates:
+    # saturation / best_result / uncertainty / benchmark_ref rebind); the
+    # frozen v0.2 op set is create/refine/merge/transition/attach_evidence/spawn.
+    enum: [create, refine, merge, transition, attach_evidence, spawn, update]
+  params:
+    type: object
+  evidence_refs:
+    type: array
+    items: {type: string, minLength: 1}
+    default: []
+  risk_level:
+    type: [string, "null"]
+    enum: [L0, L1, L2, null]
+  status:
+    type: string
+    enum: [pending, auto_applied, approved, rejected, applied, rolled_back]
+    default: pending

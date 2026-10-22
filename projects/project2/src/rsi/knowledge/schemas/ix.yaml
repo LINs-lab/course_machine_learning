@@ -1,0 +1,44 @@
+# I-X RunProposal (frozen v0.2 §8.1): execution proposal, distinct from
+# ChangeProposal. epoch/budget missing -> RSI_MISSING_EPOCH / RSI_MISSING_BUDGET.
+$schema: https://json-schema.org/draft/2020-12/schema
+$id: ix.run_proposal
+title: I-X RunProposal
+type: object
+additionalProperties: false
+required: [proposal_id, idempotency_key, hypothesis_id, question_id, benchmark_ref, budget, success_criteria, env]
+properties:
+  proposal_id:
+    type: string
+    minLength: 1
+  idempotency_key:
+    type: string
+    minLength: 1
+  hypothesis_id:
+    type: string
+    minLength: 1
+  question_id:
+    type: string
+    minLength: 1
+  benchmark_ref:
+    type: object
+    additionalProperties: false
+    required: [name, epoch, task_version]
+    properties:
+      name: {type: string, minLength: 1}
+      epoch: {type: string, minLength: 1}
+      task_version: {type: string, minLength: 1}
+  budget:
+    type: object
+    additionalProperties: false
+    required: [max_cost, max_walltime]
+    properties:
+      max_cost: {type: number, exclusiveMinimum: 0}
+      max_walltime: {type: integer, exclusiveMinimum: 0, description: seconds}
+  success_criteria:
+    type: object
+    minProperties: 1
+  env:
+    type: string
+    minLength: 1
+  seed:
+    type: [integer, "null"]

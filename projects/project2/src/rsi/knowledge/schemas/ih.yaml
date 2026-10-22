@@ -1,0 +1,63 @@
+# I-H Hypothesis node (frozen v0.2 §4.1). testability three fields are
+# all-or-nothing; derived_from requires >=1 question/theory mount point.
+$schema: https://json-schema.org/draft/2020-12/schema
+$id: ih.hypothesis
+title: I-H Hypothesis
+type: object
+additionalProperties: false
+required: [id, statement, derived_from, testability, status, version]
+properties:
+  id:
+    type: string
+    pattern: '^[a-z0-9][a-z0-9._-]*$'
+  statement:
+    type: string
+    minLength: 1
+  derived_from:
+    type: array
+    minItems: 1
+    items:
+      type: object
+      additionalProperties: false
+      required: [interface, object_id]
+      properties:
+        interface:
+          type: string
+          enum: [I-Q, I-K]
+        object_id: {type: string, minLength: 1}
+  testability:
+    type: object
+    additionalProperties: false
+    required: [procedure, expected_evidence, falsifiable_by]
+    properties:
+      procedure: {type: string, minLength: 1}
+      expected_evidence: {type: string, minLength: 1}
+      falsifiable_by: {type: string, minLength: 1}
+  prior_confidence:
+    type: number
+    minimum: 0
+    maximum: 1
+    default: 0.5
+  confidence:
+    type: number
+    minimum: 0
+    maximum: 1
+    default: 0.5
+  confidence_algorithm:
+    type: [string, "null"]
+    description: aggregation algorithm version recorded at last update
+  status:
+    type: string
+    enum: [draft, active, supported, refuted, merged]
+  evidence_counts:
+    type: object
+    additionalProperties: false
+    required: [support, refute, inconclusive]
+    properties:
+      support: {type: integer, minimum: 0}
+      refute: {type: integer, minimum: 0}
+      inconclusive: {type: integer, minimum: 0}
+    default: {support: 0, refute: 0, inconclusive: 0}
+  version:
+    type: integer
+    minimum: 1

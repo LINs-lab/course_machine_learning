@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "autoresearch-base"
+version = "1.0.0"
+description = "Autoresearch-Base: a minimal recursive self-improvement (RSI) research harness with a knowledge platform, for undergraduate course projects"
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.10"
+dependencies = [
+    "pyyaml>=6.0",
+    "jsonschema>=4.0",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0"]
+report = ["matplotlib>=3.8"]   # scripts/report.py (experiment reports)
+
+# The import package is `rsi` (launched via `python -m rsi.<module>`); the
+# distribution name `autoresearch-base` avoids the unrelated PyPI `rsi` package.
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+"rsi.knowledge" = ["schemas/*.yaml"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

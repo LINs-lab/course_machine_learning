@@ -1,0 +1,37 @@
+# I-K Corpus document: knowledge-platform ingestion unit (concept / theme /
+# paper / note). Maps onto the existing wiki/ + envs/ markdown corpus.
+$schema: https://json-schema.org/draft/2020-12/schema
+$id: ik.document
+title: I-K Corpus Document
+type: object
+additionalProperties: false
+required:
+  - doc_id
+  - kind
+  - title
+  - body
+  - created
+properties:
+  doc_id:
+    type: string
+    pattern: '^[a-z0-9][a-z0-9._-]*$'
+  kind:
+    type: string
+    enum: [concept, theme, paper, note]
+  title:
+    type: string
+    minLength: 1
+  body:
+    type: string
+    minLength: 1
+  aliases:
+    type: array
+    items:
+      type: string
+    default: []
+  source:
+    type: [string, "null"]
+    description: provenance (e.g. intern-atlas, run <id>, manual)
+  created:
+    type: string
+    format: date-time

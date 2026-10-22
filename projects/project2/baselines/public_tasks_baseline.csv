@@ -1,0 +1,6 @@
+task,metric,direction,baseline,rsi_off,rsi_on,claude_rep0,claude_rep1,claude_rep2,claude_mean,claude_sd
+Battle of the Sexes,Mean Payoff,higher,1.342,1.5232,1.4992,1.6896,1.6896,1.6896,1.6896,2.71948e-16
+Prisoner's Dilemma,Mean Payoff,higher,1.68,2.7425,2.7425,2.79167,2.79167,2.79167,2.79167,0
+Colonel Blotto,Value Rate,higher,0.528,0.599048,0.599048,0.78419,0.764381,0.751143,0.766571,0.0166323
+House Price,RMSE,lower,14517,11551.9,11779.5,9508.39,9492.17,9520.97,9507.17,14.4394
+Breakout Lite,Bricks Cleared,higher,6.42,53.4167,53.25,60,60,60,60,0

@@ -1,0 +1,55 @@
+% ======================================================================
+%  Section 5 EXPERIMENTS -- budget: ~1.5 pages (setup + main results)
+% ======================================================================
+%  Structure: 5.1 Setup, 5.2 Main results. Anything analytical goes to Section 6.
+%
+%  Setup checklist (this is the reviewer's reproducibility scorecard):
+%   * Task: which bundle, the metric definition, the budget (cycles / wall-clock).
+%   * Baselines: the given naive one plus a noop control; every strategy needs at least one "switch it off" ablation slot.
+%   * Seeds: N >= 3, report mean +/- std; single-seed results are not accepted at AI venues.
+%   * Fairness: compare at equal cycle budget; state any asymmetry explicitly.
+%   * Hyperparameters: list them all (body or appendix), including how they were chosen (never tune on the test metric).
+%
+%  Result presentation conventions:
+%   * Main table (Table 1): rows = methods, columns = metrics; booktabs three-line style, no vertical rules; bold the best entry only when its gap over the runner-up is significant.
+%   * Main figure: trajectory curves must carry a seed-variance band (mean +/- std/sem shading).
+%   * Every number must be traceable: which experiment directory and which command produced it (full details in the appendix).
+%
+%  Honesty red line: a keep-rate increase with a flat best result is NOT a yield improvement; never let a secondary metric's improvement paper over a plateau on the primary one. ANALYSIS.md section 3 of the reference experiment is a model of this kind of honest analysis.
+% ======================================================================
+\section{Experiments}
+\label{sec:exp}
+
+\subsection{Setup}
+\label{sec:exp:setup}
+
+\paragraph{Tasks and metrics.}
+\todo{The five public tasks (\texttt{battle-of-sexes}, \texttt{prisoners-dilemma}, \texttt{colonel-blotto}, \texttt{house-price}, \texttt{breakout-lite}): one-line task definition + the gate metric (higher/lower is better) + where the headroom comes from. Development tasks \texttt{quad-optim}/\texttt{iris-ood} may be mentioned but do not replace the five.}
+
+\paragraph{Baselines.}
+\todo{The given naive strategy, the noop-improver control, the Claude Code strong baseline (\texttt{baselines/public\_tasks\_baseline.md}), and one ablation slot per strategy of yours. Explain why these are fair opponents.}
+
+\paragraph{Protocol.}
+\todo{Cycles, seeds (N=\todo{}), the determinism guarantee, hardware (CPU model suffices), wall-clock per run. Command-level reproducibility goes to Appendix~\ref{app:repro}.}
+
+\subsection{Main Results}
+\label{sec:exp:main}
+
+\todo{Lead with the conclusion sentence for Table~\ref{tab:main} ("X outperforms naive by ..."), then interpret column by column; never just drop a table. Every claim must cite a specific table/figure number.}
+
+\begin{table}[t]
+  \caption{Main results: final best result and keep-rate, mean $\pm$ std over $N$ seeds. \todo{State budget and seed count in the caption; the table must be self-contained. Bold the best entry only when its gap over the runner-up is significant.}}
+  \label{tab:main}
+  \centering
+  \begin{tabular}{lcc}
+    \toprule
+    Method & Final best $\uparrow$ & Keep-rate $\uparrow$ \\
+    \midrule
+    Naive (given)        & \todo{} & \todo{} \\
+    Noop-improver ctrl.  & \todo{} & \todo{} \\
+    Ours (self-edit ON)  & \todo{} & \todo{} \\
+    Ours (self-edit OFF) & \todo{} & \todo{} \\
+    Claude Code baseline & \todo{} & --- \\
+    \bottomrule
+  \end{tabular}
+\end{table}

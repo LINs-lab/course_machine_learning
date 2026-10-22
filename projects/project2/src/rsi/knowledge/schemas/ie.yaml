@@ -1,0 +1,141 @@
+# I-E Evidence record (adapted from frozen v0.2 §5.1), dual form: machine | literature.
+# machine requires the replay pair (revision/source_hash — the base-system
+# adaptation of the source triple commit/docker_image/config_hash: same replay
+# concept, no container fleet) + RunResult 0.2-lite fields; literature requires
+# provenance + five description fields.
+$schema: https://json-schema.org/draft/2020-12/schema
+$id: ie.evidence
+title: I-E Evidence
+type: object
+additionalProperties: false
+required: [id, evidence_kind, epoch, links, replay]
+properties:
+  id:
+    type: string
+    pattern: '^[a-z0-9][a-z0-9._-]*$'
+  evidence_kind:
+    type: string
+    enum: [machine, literature]
+  epoch:
+    type: string
+    minLength: 1
+  run:
+    type: [object, "null"]
+    additionalProperties: false
+    required: [revision, source_hash]
+    properties:
+      revision: {type: string, minLength: 1}
+      source_hash: {type: string, minLength: 1}
+  run_result:
+    type: [object, "null"]
+    description: RunResult 0.2-lite (machine form)
+    additionalProperties: false
+    required: [run_id, env, status, created, duration_s, hypothesis, variable_changed, metric]
+    properties:
+      run_id: {type: string, minLength: 1}
+      env: {type: string, minLength: 1}
+      status: {type: string, enum: [keep, discard, fail]}
+      failure_mode: {type: [string, "null"]}
+      created: {type: string, format: date-time}
+      duration_s: {type: integer, minimum: 0}
+      hypothesis: {type: string, minLength: 1}
+      variable_changed: {type: string, minLength: 1}
+      metric:
+        type: object
+        additionalProperties: false
+        required: [name, direction, value]
+        properties:
+          name: {type: string, minLength: 1}
+          direction: {type: string, enum: [min, max]}
+          # value is nullable in the base system: a failed run carries no
+          # number — failure_mode/failure explains it (never a fake value).
+          value: {type: [number, "null"]}
+          baseline: {type: [number, "null"]}
+          delta: {type: [number, "null"]}
+          meets_threshold: {type: [boolean, "null"]}
+      score_per_token: {type: [number, "null"]}
+      trace_ref: {type: [string, "null"]}
+      artifact_refs:
+        type: array
+        items: {type: string}
+        default: []
+      executor: {type: [string, "null"], enum: [det, local, ssh, null]}
+      eval_regime: {type: [string, "null"]}
+      run:
+        type: [object, "null"]
+        description: replay pair carried with the push; server lifts to record level
+        additionalProperties: false
+        required: [revision, source_hash]
+        properties:
+          revision: {type: string, minLength: 1}
+          source_hash: {type: string, minLength: 1}
+      benchmark_ref:
+        type: [object, "null"]
+        additionalProperties: false
+        required: [name, epoch, task_version]
+        properties:
+          name: {type: string}
+          epoch: {type: string}
+          task_version: {type: string}
+  provenance:
+    type: [object, "null"]
+    additionalProperties: false
+    required: [paper_id, context_snippet]
+    properties:
+      paper_id: {type: string, minLength: 1}
+      context_snippet: {type: string, minLength: 1}
+  kind:
+    type: [string, "null"]
+    enum: [experiment, observation, derivation, simulation, analysis, null]
+  setup: {type: [string, "null"]}
+  dataset: {type: [string, "null"]}
+  metric_summary: {type: [string, "null"]}
+  result_summary: {type: [string, "null"]}
+  score:
+    type: [object, "null"]
+  cost:
+    type: [object, "null"]
+  trace_ref: {type: [string, "null"]}
+  artifact_refs:
+    type: array
+    items: {type: string}
+    default: []
+  failure:
+    type: [object, "null"]
+    additionalProperties: false
+    required: [class, diagnosis]
+    properties:
+      class:
+        type: string
+        enum: [oom, timeout, divergence, data, config, harness, interrupted, metric_regression, unknown]
+      diagnosis: {type: string, minLength: 1}
+  links:
+    type: array
+    default: []
+    items:
+      type: object
+      additionalProperties: false
+      required: [type, to]
+      properties:
+        type:
+          type: string
+          enum: [supports, refutes, inconclusive]
+        to: {type: string, minLength: 1, description: hypothesis or question id}
+        strength: {type: [number, "null"], minimum: 0, maximum: 1}
+        confidence: {type: [number, "null"], minimum: 0, maximum: 1}
+  replay:
+    type: object
+    additionalProperties: false
+    required: [replayable]
+    properties:
+      replayable: {type: boolean}
+      replay_of: {type: [string, "null"]}
+allOf:
+  - if:
+      properties: {evidence_kind: {const: machine}}
+    then:
+      required: [run, run_result]
+  - if:
+      properties: {evidence_kind: {const: literature}}
+    then:
+      required: [provenance, kind, setup, dataset, metric_summary, result_summary]

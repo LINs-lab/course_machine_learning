@@ -1,0 +1,56 @@
+# I-K KnowledgeNode / Theory (frozen v0.2 §6.1). Theory roots use
+# "theory:<domain>"; level caps rests_on drill depth at 0-2.
+$schema: https://json-schema.org/draft/2020-12/schema
+$id: ik.knowledge_node
+title: I-K KnowledgeNode
+type: object
+additionalProperties: false
+required: [node_id, statement, status, domain, branch, level]
+properties:
+  node_id:
+    type: string
+    pattern: '^[a-z0-9][a-z0-9._:-]*$'
+  statement:
+    type: string
+    minLength: 1
+  status:
+    type: string
+    enum: [draft, established]
+  domain:
+    type: string
+    minLength: 1
+  branch:
+    type: string
+    minLength: 1
+  level:
+    type: integer
+    minimum: 0
+    maximum: 2
+  aliases:
+    type: array
+    items: {type: string}
+    default: []
+  provenance:
+    type: [object, "null"]
+    additionalProperties: false
+    required: [source]
+    properties:
+      source: {type: string, minLength: 1, description: paper_id | manual | promotion}
+      extractor_version: {type: [string, "null"]}
+      conversion_event: {type: [string, "null"]}
+  edges:
+    type: array
+    default: []
+    items:
+      type: object
+      additionalProperties: false
+      required: [type, to]
+      properties:
+        type:
+          type: string
+          enum: [contains, rests_on, specializes, tensions]
+        to: {type: string, minLength: 1}
+  version:
+    type: integer
+    minimum: 1
+    default: 1

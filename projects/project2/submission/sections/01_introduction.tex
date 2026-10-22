@@ -1,0 +1,40 @@
+% ======================================================================
+%  Section 1 INTRODUCTION -- budget: ~1 page
+% ======================================================================
+%  Standard six-paragraph logic chain (one function per paragraph, fixed order):
+%   P1 Context + running example: open from a concrete scenario; one sentence that places the problem domain.
+%   P2 Limitations of the status quo: exactly how the naive strategies fail (cite the reference experiment's plateau as evidence).
+%   P3 Problem essence + this paper's goal: formalize in one sentence.
+%   P4 Key challenges: why this is not "just tuning" (trust boundary / measurement noise / causal attribution).
+%   P5 Solution overview: how each strategy module answers a challenge (one-to-one mapping).
+%   P6 Contributions: 3-4 itemized, verifiable claims; no adjectives.
+%
+%  The reviewer's first impression forms here: paragraph one must be concrete, and every contribution must be cashed out later in the paper.
+%  Taboos: implementation details in the intro; writing "we propose a novel framework" as a contribution.
+% ======================================================================
+\section{Introduction}
+\label{sec:intro}
+
+% --- P1: context and running example ---
+\todo{Open with the RSI engine running a research task: the single-variable experiment loop, the accumulating knowledge base, self-edits that raise research yield. Two or three sentences of minimal necessary background; assume an ML-literate reader who has never heard of this system.}
+
+% --- P2: status quo and its failure modes ---
+\todo{Be concrete about the naive failures: the fixed grid walk ignores evidence (cite your own measurements on the public tasks: what fraction of cycles were no-change waste; after which cycle the best result plateaus; where it falls short of the Claude Code baseline in \texttt{baselines/public\_tasks\_baseline.md}).}
+
+% --- P3: problem and goal ---
+\todo{One sentence: "with the engine loop and trust boundary, and the five public task scorers, frozen, make the strategy layer open a reproducible yield gap over the naive baseline and close the gap to the Claude Code baseline."}
+
+% --- P4: challenges ---
+\todo{At least two: (i) causal attribution of keep/discard decisions under observation noise; (ii) self-edits must pass the guard without breaking determinism; add the ones you actually hit.}
+
+% --- P5: solution overview ---
+\todo{One sentence per challenge mapping to a strategy module, with a forward reference to \S\ref{sec:method}.}
+
+% --- P6: contributions ---
+Our contributions are:
+\begin{itemize}
+  \item \todo{Contribution 1: a strategy plus its one-line mechanism (maps to C-1/E-3/...).}
+  \item \todo{Contribution 2: same pattern.}
+  \item \todo{Contribution 3: an empirical finding with numbers, e.g. "evidence-guided proposal doubles keep-rate at equal budget (Table~\ref{tab:main})".}
+  \item \todo{(Optional) a negative result or analysis contribution; negative results are respected at AI venues.}
+\end{itemize}

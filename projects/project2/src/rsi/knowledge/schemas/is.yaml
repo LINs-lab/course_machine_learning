@@ -1,0 +1,46 @@
+# I-S Insight (frozen v0.2 §7.1). Auxiliary layer: mount points strongly
+# validated, never enters the evidence chain (ADR-004).
+$schema: https://json-schema.org/draft/2020-12/schema
+$id: is.insight
+title: I-S Insight
+type: object
+additionalProperties: false
+required: [insight_id, statement, derived_from, source, applicability, status]
+properties:
+  insight_id:
+    type: string
+    pattern: '^[a-z0-9][a-z0-9._-]*$'
+  statement:
+    type: string
+    minLength: 1
+  derived_from:
+    type: array
+    minItems: 1
+    items:
+      type: object
+      additionalProperties: false
+      required: [interface, object_id]
+      properties:
+        interface:
+          type: string
+          enum: [I-Q, I-H, I-K]
+        object_id: {type: string, minLength: 1}
+  source:
+    description: evidence_ids[] or the literal "experiential"
+    anyOf:
+      - type: string
+        const: experiential
+      - type: array
+        minItems: 1
+        items: {type: string, minLength: 1}
+  applicability:
+    type: array
+    minItems: 1
+    description: applicable questions/scenarios
+    items:
+      type: string
+      minLength: 1
+  status:
+    type: string
+    enum: [active, merged, retired]
+    default: active

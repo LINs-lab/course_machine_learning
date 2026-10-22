@@ -1,0 +1,85 @@
+% ======================================================================
+%  NeurIPS Paper Checklist -- mandatory; follows the references; does not count toward the page limit
+% ======================================================================
+%  Rules: every item takes exactly one answer, [Yes] / [No] / [NA], plus a short justification with a section pointer.
+%  A "No" answer does not automatically reject the paper, but a missing or perfunctory checklist does.
+%  All answers must be truthful -- a fabricated checklist is an ethics violation.
+%  This skeleton follows the NeurIPS 2025 checklist structure; re-check against the official current-year version before submitting.
+% ======================================================================
+\section*{NeurIPS Paper Checklist}
+
+\begin{enumerate}
+
+\item {\bf Claims}
+\item[] Question: Do the main claims made in the abstract and introduction accurately reflect the paper's contributions and scope?
+\item[] Answer: \todo{[Yes/No/NA]}
+\item[] Justification: \todo{Point to the contribution list in \S\ref{sec:intro} and the corresponding evidence in \S\ref{sec:exp}.}
+
+\item {\bf Limitations}
+\item[] Question: Does the paper discuss the limitations of the work performed by the authors?
+\item[] Answer: \todo{[Yes]}
+\item[] Justification: \todo{Point to \S\ref{sec:discussion}.}
+
+\item {\bf Theory assumptions and proofs}
+\item[] Question: For each theoretical result, does the paper provide the full set of assumptions and a complete (and correct) proof?
+\item[] Answer: \todo{[NA] -- this is empirical work; if you make any theoretical claim, point to its proof here.}
+
+\item {\bf Experimental result reproducibility}
+\item[] Question: Does the paper fully disclose all the information needed to reproduce the main experimental results?
+\item[] Answer: \todo{[Yes]}
+\item[] Justification: \todo{Point to Appendix~\ref{app:repro}: commands, seeds, configuration. The system is deterministic -- same seed, same result.}
+
+\item {\bf Open access to data and code}
+\item[] Question: Does the paper provide open access to the data and code?
+\item[] Answer: \todo{[Yes/No]}
+\item[] Justification: \todo{State where the code and data live (course repository or public link). This is a course submission -- no anonymization is needed.}
+
+\item {\bf Experimental setting/details}
+\item[] Question: Does the paper specify all the training and test details?
+\item[] Answer: \todo{[Yes]}
+\item[] Justification: \todo{Point to \S\ref{sec:exp:setup} and the appendix hyperparameter table.}
+
+\item {\bf Experiment statistical significance}
+\item[] Question: Does the paper report error bars suitably and correctly defined or other appropriate information about statistical significance?
+\item[] Answer: \todo{[Yes]}
+\item[] Justification: \todo{Mean $\pm$ std over N seeds; name the significance test used.}
+
+\item {\bf Experiments compute resources}
+\item[] Question: For each experiment, does the paper provide sufficient information on the computer resources needed?
+\item[] Answer: \todo{[Yes]}
+\item[] Justification: \todo{CPU model, wall-clock per run, total compute hours.}
+
+\item {\bf Code of ethics}
+\item[] Question: Does the research conform to the NeurIPS Code of Ethics?
+\item[] Answer: \todo{[Yes]}
+
+\item {\bf Broader impacts}
+\item[] Question: Does the paper discuss both potential positive societal impacts and negative societal impacts?
+\item[] Answer: \todo{[Yes]}
+\item[] Justification: \todo{Point to the broader-impact paragraph in \S\ref{sec:discussion}.}
+
+\item {\bf Safeguards}
+\item[] Question: Does the paper describe safeguards for responsible release of high-risk models or data?
+\item[] Answer: \todo{[Yes/NA]}
+\item[] Justification: \todo{The guard, trust boundary, and meltdown brake are the safeguards; point to \S\ref{sec:system} and \S\ref{sec:discussion}.}
+
+\item {\bf Licenses for existing assets}
+\item[] Question: Are the creators or original owners of assets (code, data, models) properly credited, and are licenses and terms of use respected?
+\item[] Answer: \todo{[Yes]}
+
+\item {\bf New assets}
+\item[] Question: Are new assets introduced in this paper well documented, and is the documentation alongside the assets?
+\item[] Answer: \todo{[Yes/NA]}
+
+\item {\bf Crowdsourcing and research with human subjects}
+\item[] Answer: \todo{[NA]}
+
+\item {\bf Institutional review board (IRB) approvals}
+\item[] Answer: \todo{[NA]}
+
+\item {\bf Declaration of LLM usage}
+\item[] Question: Does the paper describe the usage of LLMs if it is an important, original, or non-standard component of the core methods?
+\item[] Answer: \todo{[Yes/NA]}
+\item[] Justification: \todo{If your strategies use the \texttt{rsi.llm} seam, state the model, the role of each prompt, and how caching preserves determinism; also disclose any LLM assistance in writing (NeurIPS requires disclosure, and LLMs cannot be authors).}
+
+\end{enumerate}

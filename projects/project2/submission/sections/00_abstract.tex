@@ -1,0 +1,14 @@
+% ======================================================================
+%  ABSTRACT -- budget: 150-250 words, one paragraph, no citations
+% ======================================================================
+%  The de-facto four-move skeleton at AI venues:
+%   1. Problem: the task and why it is hard, in one sentence (no background warm-up).
+%   2. Insight: the key idea ("We observe that ..." / "Our key insight is ...").
+%   3. Method: what you actually built (strategy names + mechanism, not a pipeline recap).
+%   4. Result: the single strongest quantified claim, with concrete numbers and the baseline.
+%
+%  Taboos: opening with "In this paper, we ..."; no numbers; claiming more than the experiments support.
+% ======================================================================
+\begin{abstract}
+Recursive self-improvement (RSI) engines can run autonomously, but with naive strategies their research yield plateaus quickly. \todo{1-2 sentences: name the specific bottleneck you attack, e.g. "proposals ignore accumulated evidence, so most cycles are wasted on re-exploration".} Our key insight is that \todo{one-sentence core insight}. We implement \todo{the strategy bundle, corresponding to whichever of C-1/C-2/E-2/E-3 you completed} on top of a frozen three-loop RSI engine, and evaluate on \todo{task name(s)} under matched cycle budgets. \todo{Method name} improves the final best result from \todo{X} to \todo{Y} ($\pm$ \todo{seed std} over \todo{N} seeds), raises proposal keep-rate from \todo{A\%} to \todo{B\%}, and produces \todo{Z} promoted self-edits that survive guard arbitration. Ablations show that \todo{which component carries the gain}.
+\end{abstract}

@@ -1,0 +1,46 @@
+% ======================================================================
+%  Section 4 METHOD -- budget: 1.5-2 pages; the core of the paper
+% ======================================================================
+%  One subsection per strategy you actually completed (e.g.):
+%   4.1 Evidence-Guided Proposer (C-1)
+%   4.2 Waste-Triggered Self-Improver (C-2)
+%   4.3 Noise-Floor Diagnostics & Gates (E-3/E-2)
+%  Inside each subsection, use a uniform three-part pattern:
+%   (i)   Motivation: the concrete failure of the naive version plus a one-sentence insight.
+%   (ii)  Mechanism: a precise algorithmic description -- pseudocode (algorithm float) or equations; write to "a reader could re-implement this" granularity; never "we use a model to ..." hand-waving.
+%   (iii) Constraints honored: why the design satisfies the frozen contracts (determinism, guard, Protocol signatures).
+%
+%  Conventions:
+%  * Keep notation consistent across the whole section and define every symbol at first use.
+%  * Pseudocode earns more trust than prose -- give the core strategy an Algorithm float.
+%  * For every design choice, answer "why not the simpler alternative" -- this pre-empts reviewer questions.
+% ======================================================================
+\section{Method: Strategies Behind the Seams}
+\label{sec:method}
+
+\todo{Open with two or three overview sentences: which strategies you implemented and how they cooperate (e.g. the proposer generates candidates, diagnostics decides when to upgrade the epoch, the improver turns waste signals into strategy edits). Then one subsection per strategy.}
+
+\subsection{\todo{Strategy name, e.g. Evidence-Guided Proposal Ranking} (C-1)}
+\label{sec:method:proposer}
+
+\paragraph{Motivation.}
+\todo{The concrete naive failure: fixed grid, ignores KB evidence $\to$ cite your measurement (e.g. what fraction of the naive run's 292 cycles were repeated or wasted proposals).}
+
+\paragraph{Mechanism.}
+\todo{Precisely: how candidates are ranked from \texttt{evidence\_for} / \texttt{best\_result} / \texttt{uncertainty}; how the value grid adapts. Provide an equation or pseudocode:}
+
+% \begin{algorithm}[t]
+% \caption{\todo{Strategy name}}
+% \label{alg:proposer}
+% \begin{algorithmic}[1]
+%   \Require knowledge base $\mathcal{K}$, frontier question $q$, budget $B$
+%   \State \todo{...}
+% \end{algorithmic}
+% \end{algorithm}
+
+\paragraph{Constraints honored.}
+\todo{Determinism (the seeded RNG as the only randomness source), unchanged Protocol signatures, no touching frozen components -- one sentence each.}
+
+\subsection{\todo{Strategy name} (C-2 / E-3 / ...)}
+\label{sec:method:second}
+\todo{Follow the same three-part pattern.}
